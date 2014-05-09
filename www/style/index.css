@@ -1,0 +1,554 @@
+/*
+ */
+
+@import "bigeyessolution-demo.css";
+@import "idangerous.swiper.css";
+@import "jquery.mobile.custom.structure.min.css";
+@import "jquery.mobile.icons.min.css";
+
+/*
+Colors of BigEyes:
+Vivid yellow: rgb(252,206,6) #fcce06 http://www.colorhexa.com/fcce06
+Very dark (mostly black) blue: rgb(38,38,45) #26262d http://www.colorhexa.com/26262d
+
+Variations
+For shadows: rbg(11,11,13) #0b0b0d http://www.colorhexa.com/0b0b0d
+For Links: rgb(19,19,64) #131340 http://www.colorhexa.com/131340
+*/
+
+* { -webkit-tap-highlight-color: rgba(0,0,0,0); } /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+
+html, body { width: 100%; height: 100% !important; padding: 0; margin: 0; }
+
+h1, h2, h3, h4, h5, h6, a, span, div, input, td, p, body { font-family: sans-serif; }
+
+p, div, span, input {  font-size: 1em; };
+
+body { 
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color: rgb(38,38,45);
+}
+
+.bt-header-back {
+    top: 0;
+    left: 0;
+    height: 60px; 
+    width: 40px; 
+    border: 0;
+    background: url('images/bt-back.png') center no-repeat; 
+    padding: 0; 
+    margin: 0;
+    
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+}
+
+.bt-home, .bt-back, .bt-logo-header, .bt-logotipo-frontpage { 
+    display: block; 
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.ui-header { margin-top: 0; margin-bottom: 0; padding: 0;
+    background-image: url('images/logotipo-headers.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ui-title {
+    padding: 0 !important;
+}
+
+.bt-logo-header {
+    width: 400px;
+    height: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent !important;
+    //background-size: contain;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-border-radius: 0 0 0 0 !important;
+    border-radius: 0 0 0 0 !important;
+}
+.bt-menu{
+    width: 28px;
+    height: 30px;
+    border: 0;
+    background-image: url('images/menu.png');
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    left: -5px;
+}
+.bt-voltar{
+    /* width: 4px; */
+    height: 30px;
+    border: 0;
+    /* background-image: url('images/voltar.png'); */
+    /* background-repeat: no-repeat; */
+    /* background-origin: content-box; */
+    /* left: -5px; */
+}
+
+.bt-logotipo-frontpage { 
+    width: 220px;
+    height: 200px;
+    margin-left: auto; margin-right: auto;
+    background: url('images/logotipo.png');
+    background-repeat: no-repeat;
+    background-origin: content-box;
+}
+
+.description-on-list {
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+}
+
+#site-itens p { white-space: normal !important }
+
+@media ( min-width: 768px ){
+    .description-on-list { height: 70px; }
+}
+
+@media ( min-width: 750px ){    
+    .bt-logotipo-frontpage { 
+        width: 700px;
+        height: 180px;
+        margin-left: auto; margin-right: auto;
+        background: url('images/logotipo-wide.png');
+    }
+}
+@media ( min-width: 530px ) and (max-width: 749px) {
+    .bt-logotipo-frontpage { 
+        width: 500px;
+        height: 140px;
+        margin-left: auto; margin-right: auto;
+        background: url('images/logotipo-wide-500.png');
+        background-repeat: no-repeat;
+    }
+}
+
+.bt-home, .bt-back { position: fixed; width: 64px; height: 70px; }
+
+.bt-home { background: url('images/map-bt-home.png'); /* top: 0px; */ right: 0px; bottom: 0px;}
+.bt-back { background: url('images/map-bt-back.png'); bottom: 0px; left: 0px; }
+
+.ui-content {
+    margin-top: 60px;
+    margin-bottom: 64px;
+}
+
+.ui-body-c {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+
+}
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+/* SITE-DESCRIPTION */
+
+#site-description p {
+    text-align: justify;
+}
+
+#site-description hr {
+    border-color: #fcce06;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#site-description h3 {
+    margin-bottom: 0px; 
+}
+
+#site-description .ui-body {
+}
+
+#site-description .btn-show {
+    float: right;
+    vertical-align: middle;
+    margin-left: 15px;
+}
+
+#site-logo {
+    width: 80%;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    -webkit-box-shadow: 0 0 1px 0 #6e6e82;
+    box-shadow: 0 0 1px 0 #6e6e82;
+}
+
+#site-description .ui-panel {
+    background-color: #c8c8c8;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+#site-description .swiper-container {
+    height: 300px;
+}
+
+#site-description .swiper-wrapper {
+    padding-left: 0px; 
+    padding-right: 0px; 
+    height: 100%; 
+    transition: 0s; 
+    -webkit-transition: 0s; 
+    -webkit-transform: translate3d(0px, 0px, 0px);
+}
+
+#site-description .swiper-slide { height: 100%; }
+
+#site-description .swiper-slide img {height: 100%;}
+
+#site-map, #map-content, #map-canvas { height: 100% }
+
+#site-map { background: rgb(38,38,45); }
+
+@media ( min-width: 48em ) { 
+    #site-logo {
+        max-width: 400px;
+    }
+}
+
+/* END SITE-DESCRIPTION*/
+
+/* LISTVIEW */
+
+/* A bit custom styling */
+.page-with-list-thumb .ui-listview li .ui-btn p {
+    color: #000;
+}
+.page-with-list-thumb .ui-listview li .ui-btn .ui-li-aside {
+    color: #fff;
+}
+
+.page-with-list-thumb .ui-content {
+    height: 100%;
+}
+
+/* First breakpoint is 48em (768px). 3 column layout. Tiles 250x250 pixels incl. margin at the breakpoint. */
+@media ( min-width: 48em ) {
+    .page-with-list-thumb .ui-content {
+        padding: .5625em; /* 9px */
+    }
+    .page-with-list-thumb .ui-listview li {
+        float: left;
+        width: 30.9333%; /* 33.3333% incl. 2 x 1.2% margin */
+        height: 14.5em; /* 232p */
+        margin: .5625em 1.2%;
+    }
+    .page-with-list-thumb .ui-listview li > .ui-btn {
+        -webkit-box-sizing: border-box; /* include padding and border in height so we can set it to 100% */
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        height: 100%;
+    }
+    .page-with-list-thumb .ui-listview li.ui-li-has-thumb .ui-li-thumb {
+        height: auto; /* To keep aspect ratio. */
+        max-width: 100%;
+        max-height: none;
+    }
+    /* Make all list items and anchors inherit the border-radius from the UL. */
+    .page-with-list-thumb .ui-listview li,
+    .page-with-list-thumb .ui-listview li .ui-btn,
+    .page-with-list-thumb .ui-listview .ui-li-thumb {
+        -webkit-border-radius: inherit;
+        border-radius: inherit;
+    }
+    /* Hide the icon */
+    .page-with-list-thumb .ui-listview .ui-btn-icon-right:after {
+        display: none;
+    }
+    /* Make text wrap. */
+    .page-with-list-thumb .ui-listview h2,
+    .page-with-list-thumb .ui-listview p {
+        white-space: normal;
+        overflow: visible;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+    /* Text position */
+    .page-with-list-thumb .ui-listview h2 {
+        font-size: 1.25em;
+        margin: 0;
+        padding: .125em 1em;
+        bottom: 50%;
+    }
+    .page-with-list-thumb .ui-listview p {
+        font-size: 1em;
+        margin: 0;
+        padding: 0 1.25em;
+        min-height: 50%;
+        bottom: 0;
+    }
+    /* Semi transparent background and different position if there is a thumb. The button has overflow hidden so we don't need to set border-radius. */
+    .ui-listview .ui-li-has-thumb h2,
+    .ui-listview .ui-li-has-thumb p {
+        background: #111;
+        background: rgba(0,0,0,.8);
+    }
+    .ui-listview .ui-li-has-thumb h2 {
+        bottom: 35%;
+    }
+    .ui-listview .ui-li-has-thumb p {
+        min-height: 35%;
+    }
+    /* ui-li-aside has class .ui-li-desc as well so we have to override some things. */
+    .page-with-list-thumb .ui-listview .ui-li-aside {
+        padding: .125em .625em;
+        width: auto;
+        min-height: 0;
+        top: 0;
+        left: auto;
+        bottom: auto;
+        /* Custom styling. */
+        background: #26262d;
+        background: rgba(38,38,45,.85);
+        -webkit-border-top-right-radius: inherit;
+        border-top-right-radius: inherit;
+        -webkit-border-bottom-left-radius: inherit;
+        border-bottom-left-radius: inherit;
+        -webkit-border-bottom-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    /* If you want to add shadow, don't kill the focus style. */
+    .page-with-list-thumb .ui-listview li {
+        -moz-box-shadow: 0px 0px 9px #111;
+        -webkit-box-shadow: 0px 0px 9px #111;
+        box-shadow: 0px 0px 9px #111;
+    }
+    /* Images mask the hover bg color so we give desktop users feedback by applying the focus style on hover as well. */
+    .page-with-list-thumb .ui-listview li > .ui-btn:hover {
+        -moz-box-shadow: 0px 0px 12px #33ccff;
+        -webkit-box-shadow: 0px 0px 12px #33ccff;
+        box-shadow: 0px 0px 12px #33ccff;
+    }
+    /* Animate focus and hover style, and resizing. */
+    .page-with-list-thumb .ui-listview li,
+    .page-with-list-thumb .ui-listview .ui-btn {
+        -webkit-transition: all 500ms ease;
+        -moz-transition: all 500ms ease;
+        -o-transition: all 500ms ease;
+        -ms-transition: all 500ms ease;
+        transition: all 500ms ease;
+    }
+}
+/* Second breakpoint is 63.75em (1020px). 4 column layout. Tiles will be 250x250 pixels incl. margin again at the breakpoint. */
+@media ( min-width: 63.75em ) {
+    .page-with-list-thumb .ui-content {
+        padding: .625em; /* 10px */
+    }
+    /* Set a max-width for the last breakpoint to prevent too much stretching on large screens.
+    By setting the max-width equal to the breakpoint width minus padding we keep square tiles. */
+    .page-with-list-thumb .ui-listview {
+        max-width: 62.5em; /* 1000px */
+        margin: 0 auto;
+    }
+    /* Because of the 1000px max-width the width will always be 230px (and margin left/right 10px),
+    but we stick to percentage values for demo purposes. */
+    .page-with-list-thumb .ui-listview li {
+        width: 23%;
+        height: 230px;
+        margin: .625em 1%;
+    }
+}
+
+/* END LISTVIEW */
+
+/* FRONTPAGE LISTVIEW */
+
+.frontpage-with-list-thumb .ui-listview li .ui-btn p {
+    /* color: #26262d; */
+}
+.frontpage-with-list-thumb .ui-listview li .ui-btn .ui-li-aside {
+    color: #fff;
+}
+
+.frontpage-with-list-thumb .ui-content {
+    height: 100%;
+    margin-top: 0;
+}
+
+.frontpage-with-list-thumb .ui-listview h2 {
+    visibility: visible;
+}
+
+.frontpage-with-list-thumb .ui-listview .ui-li-aside {
+    visibility: hidden;
+}
+
+/* First breakpoint is 48em (768px). 3 column layout. Tiles 250x250 pixels incl. margin at the breakpoint. */
+@media ( min-width: 48em ) {
+    .frontpage-with-list-thumb .ui-content {
+        padding: .5625em; /* 9px */
+    }
+    .frontpage-with-list-thumb .ui-listview {
+    height: 490px;
+    }
+    .frontpage-with-list-thumb .ui-listview li {
+        float: left;
+        width: 30.9333%; /* 33.3333% incl. 2 x 1.2% margin */
+        height: 14.5em; /* 232p */
+        margin: .5625em 1.2%;
+    
+}
+    .frontpage-with-list-thumb .ui-listview li > .ui-btn {
+        -webkit-box-sizing: border-box; /* include padding and border in height so we can set it to 100% */
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        height: 100%;
+    }
+    .frontpage-with-list-thumb .ui-listview li.ui-li-has-thumb .ui-li-thumb {
+        height: auto; /* To keep aspect ratio. */
+        max-width: 100%;
+        max-height: none;
+    }
+    /* Make all list items and anchors inherit the border-radius from the UL. */
+    .frontpage-with-list-thumb .ui-listview li,
+    .frontpage-with-list-thumb .ui-listview li .ui-btn,
+    .frontpage-with-list-thumb .ui-listview .ui-li-thumb {
+        -webkit-border-radius: inherit;
+        border-radius: inherit;
+    }
+    /* Hide the icon */
+    .frontpage-with-list-thumb .ui-listview .ui-btn-icon-right:after {
+        display: none;
+    }
+    /* Make text wrap. */
+    .frontpage-with-list-thumb .ui-listview h2,
+    .frontpage-with-list-thumb .ui-listview p {
+        white-space: normal;
+        overflow: visible;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+    /* Text position */
+    .frontpage-with-list-thumb .ui-listview h2 {
+        visibility: hidden;
+        font-size: 1.25em;
+        margin: 0;
+        padding: .125em 1em;
+        bottom: 50%;
+    }
+    .frontpage-with-list-thumb .ui-listview p {
+        font-size: 1em;
+        margin: 0;
+        padding: 0 1.25em;
+        min-height: 50%;
+        bottom: 0;
+    }
+    /* Semi transparent background and different position if there is a thumb. The button has overflow hidden so we don't need to set border-radius. */
+    .frontpage-with-list-thumb .ui-listview .ui-li-has-thumb h2,
+    .frontpage-with-list-thumb .ui-listview .ui-li-has-thumb p {
+        background: #111;
+        background: rgba(0,0,0,.7);
+    }
+    .ui-listview .ui-li-has-thumb h2 {
+        bottom: 35%;
+    }
+    .ui-listview .ui-li-has-thumb p {
+        min-height: 35%;
+    }
+    /* ui-li-aside has class .ui-li-desc as well so we have to override some things. */
+    .frontpage-with-list-thumb .ui-listview .ui-li-aside {
+        visibility: visible;
+        padding: .125em .625em;
+        width: auto;
+        min-height: 0;
+        top: 0;
+        left: auto;
+        bottom: auto;
+        /* Custom styling. */
+        background: #3d3201 !important;
+        background: rgba(61,50,1,.85)!important;
+        -webkit-border-top-right-radius: inherit;
+        border-top-right-radius: inherit;
+        -webkit-border-bottom-left-radius: inherit;
+        border-bottom-left-radius: inherit;
+        -webkit-border-bottom-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    /* If you want to add shadow, don't kill the focus style. */
+    .frontpage-with-list-thumb .ui-listview li {
+        -moz-box-shadow: 0px 0px 9px #111;
+        -webkit-box-shadow: 0px 0px 9px #111;
+        box-shadow: 0px 0px 9px #111;
+    }
+    /* Images mask the hover bg color so we give desktop users feedback by applying the focus style on hover as well. */
+    .frontpage-with-list-thumb .ui-listview li > .ui-btn:hover {
+        -moz-box-shadow: 0px 0px 12px #33ccff;
+        -webkit-box-shadow: 0px 0px 12px #33ccff;
+        box-shadow: 0px 0px 12px #33ccff;
+    }
+    /* Animate focus and hover style, and resizing. */
+    .frontpage-with-list-thumb .ui-listview li,
+    .frontpage-with-list-thumb .ui-listview .ui-btn {
+        -webkit-transition: all 500ms ease;
+        -moz-transition: all 500ms ease;
+        -o-transition: all 500ms ease;
+        -ms-transition: all 500ms ease;
+        transition: all 500ms ease;
+    }
+}
+/* Second breakpoint is 63.75em (1020px). 4 column layout. Tiles will be 250x250 pixels incl. margin again at the breakpoint. */
+@media ( min-width: 63.75em ) {
+    .frontpage-with-list-thumb .ui-content {
+        padding: .625em; /* 10px */
+    
+        margin-top: 0;
+}
+    /* Set a max-width for the last breakpoint to prevent too much stretching on large screens.
+    By setting the max-width equal to the breakpoint width minus padding we keep square tiles. */
+    .frontpage-with-list-thumb .ui-listview {
+        max-width: 62.5em; /* 1000px */
+        margin: 0 auto;
+        height: 500px;
+    }
+    /* Because of the 1000px max-width the width will always be 230px (and margin left/right 10px),
+    but we stick to percentage values for demo purposes. */
+    .frontpage-with-list-thumb .ui-listview li {
+        width: 23%;
+        height: 230px;
+        margin: .625em 1%;
+    }
+}
+
+/* END FRONTPAGE LISTVIEW */

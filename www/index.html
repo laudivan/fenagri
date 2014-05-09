@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--
+    Created on : 24/03/2014, 13:37:45
+    Author     : Laudivan
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+        <link rel="stylesheet" type="text/css" href="style/index.css" />
+
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/jquery.mobile.custom.min.js"></script>
+        <script src="js/idangerous.swiper.js"></script>
+        <script src="js/BigEyesSolutionEnvironment.js"></script>
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+        
+        <script type="text/javascript">
+            WhitelabelId     = 1,
+            WhitelabelName   = "FENAGRI 2014";
+            BaseApiURL       = 'http://api.bigeyessolution.com';
+            //BaseApiURL       = 'http://localhost:8001';
+            ShowInApp        =  false;
+            
+            MapKey           = 'AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw';
+            DefaultMapLat    = -9.3924361; //@todo Onde vair ser a FENAGRI??
+            DefaultMapLon    = -40.4939533;
+            MapZoomDefault   = 16;
+            var MapStyles =[ 
+                {   "featureType": "administrative",
+                    "stylers": [{ "visibility": "off" }]
+                },
+                {   "featureType": "poi",
+                    "stylers": [{ "visibility": "off" }]
+                }
+            ];
+            
+            bigeyesInit();
+        </script>
+
+        <title>Fenagri APP</title>
+    </head>
+    <body>
+        <div data-role="page" id="home" data-theme="b" class="frontpage-with-list-thumb"> <!-- Define a primeira págine do aplicativo -->
+            <div id="front-page-header" data-role="header" data-position="fixed" data-fullscreen="true" data-tap-toggle="false">
+                <h1><a href="#home" class="bt-logo-header"></a></h1>
+            </div><!-- Header -->
+            <div role="main" class="ui-content">
+                <span class="bt-logotipo-frontpage"></span>
+                
+                <div class="menu-list azul estrela"><a href="#afeira" data-transition="slide">A Feira</a></div>
+                
+                <ul data-role="listview" data-inset="true" class="listview">
+                    <li class="verde"><a onclick="showSitesByCategory(1)">
+                        <img src="style/images/icons/turismo.png" class="ui-li-thumb" alt="">
+                        <h2>Turismo</h2>
+                        <p>Pontos turísticos, <wbr>passeios, <wbr>agências, ...</p>
+                        <p class="ui-li-aside">Turismo</p>
+                    </a></li>
+                    <li class="verdeClaro"><a onclick="showSitesByCategory(2)">
+                        <img src="style/images/icons/hoteis.png" class="ui-li-thumb" alt="">
+                        <h2>Hotéis</h2>
+                        <p>As melhores <wbr>hospedagens da <wbr>região.</p>
+                        <p class="ui-li-aside">Hotéis</p>
+                    </a></li>
+                    <li class="azul"><a onclick="showSitesByCategory(3)">
+                        <img src="style/images/icons/restaurantes.png" class="ui-li-thumb" alt="">
+                        <h2>Restaurantes</h2>
+                        <p>Experimente o <wbr>melhor da nossa <wbr>culinária.</p>
+                        <p class="ui-li-aside">Restaurantes</p>
+                    </a></li>
+                    <li class="azulClaro"><a onclick="showSitesByCategory(4)">
+                        <img src="style/images/icons/bares.png" class="ui-li-thumb" alt="">
+                        <h2>Bares</h2>
+                        <p>As melhores <wbr>opções para <wbr>a noitada.</p>
+                        <p class="ui-li-aside">Bares</p>
+                    </a></li>
+                    <li class="verde"><a onclick="showSitesByCategory(5)">
+                        <img src="style/images/icons/lanchonete.png" class="ui-li-thumb" alt="">
+                        <h2>Lanchonetes</h2>
+                        <p>Lanche <wbr>rápido com <wbr>qualidade.</p>
+                        <p class="ui-li-aside">Lanchonetes</p>
+                    </a></li>
+                </ul><!-- Lista de categorias -->
+                <div class="ui-grid-a ui-responsive">
+                    <div class="ui-block-a" style="padding: 5px;">
+                        <div class="menu-list verdeClaro taxi"><a data-transition="slide" href="#taxis">Taxis</a></div>
+                    </div>
+                    <div class="ui-block-b" style="padding: 5px;">
+                        <div class="menu-list azul emergencia"><a data-transition="slide" href="#telefones">Telefones Úteis</a></div>
+                    </div>
+                </div>
+                <a data-transition="slideup" href="#about" style="float: right"><img src="style/images/poweredbybe.png" alt=""></a>
+            </div>
+        </div><!-- home page -->
+
+        <!-- Listagem de sites-->
+        <div data-role="page" data-theme="b" id="sites" class='page-with-list-thumb'>
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a href="#home" class="bt-logo-header"></a></h1>
+            </div>
+
+            <div role="main" class="ui-content">
+                <ul id="sites-ul" data-role="listview" data-filter="true" data-filter-placeholder="Pesquisar..." data-inset="true"></ul>
+            </div><!-- listview -->
+        </div> <!-- Listagem de sites-->
+        
+        <div data-role="page" data-theme="b" id="site-description" class="ui-responsive-panel">
+            <div data-role="panel" data-theme="c" data-position="right" id="site-itens">
+                <div class="ui-body ui-body-c">
+                    <ul data-role="listview" data-theme="c" data-filter="true" data-filter-placeholder="Pesquisar..."></ul>
+                </div>
+            </div><!-- Lista de itens: quartos, cardápio, etc -->
+            
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a href="#home" class="bt-logo-header"></a></h1>
+            </div>
+            
+            <div role="main" data-role="content">                
+                <center><img id="site-logo" alt=""></center>
+
+                <h3 id="site-name"><!-- Nome do estabelecimento --></h3>
+                <hr>
+                <div class="ui-body">
+                    <a id="site-phone"><!-- Número de telefone --></a>
+                    <a id="btn-see-on-map" class="btn-show">
+                        <img src="style/images/icons/see-on-map.png" alt="Ver no mapa">
+                    </a>
+                    <a id="btn-show-itens" class="btn-show">
+                        <img src="style/images/icons/itens-list.png" alt="Lista de itens">
+                    </a>
+                </div>
+                <div  class="ui-body ui-body-c">
+                    <p id="site-text-description"></p>
+                    <p id="site-address"></p>
+                </div>
+                <br>
+                <div id="photos"></div>
+            </div><!-- page content -->
+        </div> <!-- page site-description -->
+
+        <div id="site-map" data-role="page">
+            <div id="map-canvas"></div>
+            <a href="index.html" class="bt-home"></a>
+            <a onclick="backFromMap ()" class="bt-back"></a>
+        </div>
+        
+        <!-- SOBRE A SOLUCAO-->
+        <div data-role="page" data-theme="b" id="about">
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a href="#home" class="bt-logo-header"></a></h1>
+            </div> <!-- /about header -->
+
+            <div class="ui-content" style="text-align: justify;">
+                <div class="ui-body-c">
+                    <p style="text-align: center">
+                        <a href="http://www.bigeyessolution.com"><img src="style/images/about-bigeyessolution.png" alt=""></a>
+                    </p>
+                    <p>
+                        Este aplicativo é parte do serviço de mobile marketing 
+                        desenvolvido e oferecido pela <em>Big Eyes Solution Ltda</em>
+                        sob o modelo White Label.
+                        Para maiores informações acesse nosso site em 
+                        <a href="http://www.bigeyessolution.com">www.BigEyesSolution.com</a>
+                        ou envie um email para 
+                        <a href="mailto:contato@bigeyessolution.com">contato@BigEyesSolution.com</a>.
+                    </p>
+                </div>
+                <br/>
+                <div class="ui-body-c">
+                    <p style="text-align: center">
+                        <a href="http://www.encontresolucao.com.br"><img src="style/images/about-encontre.png" alt=""></a>
+                    </p>
+                    <p>
+                        A Encontre Solução é parceira impressindível no projeto 
+                        e desenvolvimento desta solução.
+                        Para maiores informações visite 
+                        <a href="www.encontresolucao.com.br">www.EncontreSolucao.com.br</a> 
+                        ou envie uma mensagem para 
+                        <a href="mailto:contato@encontresolucao.com.br">contato@EncontreSolucao.com.br</a>.
+                    </p>
+                </div>
+                <br/>
+                <div class="ui-body-c">
+                    <p>
+                        Este aplicativo foi desenvolvido usando as seguintes tecnologias:
+                    </p>
+
+                </div>
+
+            </div> <!-- /about content main -->
+        </div> <!-- about page -->
+
+        <!-- A FEIRA-->
+        <div data-role="page" data-theme="b" id="afeira">
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a href="#home" class="bt-logo-header"></a></h1>
+            </div> <!-- /about header -->
+
+            <div class="ui-content" style="text-align: justify;">
+                <div class="ui-body-c">
+                    <p>
+                       Na Fenagri, você vai conhecer muitas novidades. 
+                       Exposição de produtos e serviços voltados para o agronegócio, e uma grande programação de minicursos, 
+                       rodadas de negócios, palestras, debates e exposição sobre a agricultura familiar, exportação cooperada, 
+                       fruticultura, novas culturas, associativismo, integração com apicultura, caprino-ovinocultura e piscicultura, 
+                       intercâmbio comercial, integração entre produtores, comercializadores e exportadores, novos mercados e muito mais. 
+                       E você, que é produtor, fornecedor ou comercializador, não pode perder!
+                       <br>
+                       <a href="http://fenagri2014.com.br/">www.fenagri2014.com.br</a>
+                    </p>
+                </div>
+            </div> <!-- ui-content -->
+        </div> <!-- a-feira -->
+        
+        <!-- TAXIS-->
+        <div data-role="page" id="taxis" data-theme="b" >
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a href="#home" class="bt-logo-header"></a></h1>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <ul id="list" class="touch" data-role="listview" data-icon="false">
+                    <li><a href="tel:+558799998888">
+                            <h3>Moura Taxi</h3>
+                            <p><strong>Taxi de luxo</strong></p>
+                            <p>(87) 9999-8888</p>
+                            <p class="ui-li-aside"><strong>24 Horas</strong></p>
+                    </a></li>
+                    <li><a href="tel:+558799998888">
+                            <h3>Taxi Freire</h3>
+                            <p><strong>Taxi convencional</strong></p>
+                            <p>(87) 9999-8888</p>
+                            <p class="ui-li-aside"><strong></strong></p>
+                    </a></li>
+                    <li><a href="tel:+558799998888">
+                            <h3>Taxi Freire</h3>
+                            <p><strong>Taxi convencional</strong></p>
+                            <p>(87) 9999-8888</p>
+                            <p class="ui-li-aside"><strong>24 Horas</strong></p>
+                    </a></li>
+                    <li><a href="tel:+558799998888">
+                            <h3>Taxi Freire</h3>
+                            <p><strong>Taxi convencional</strong></p>
+                            <p>(87) 9999-8888</p>
+                            <p class="ui-li-aside"><strong></strong></p>
+                    </a></li>
+                    <li><a href="tel:+558799998888">
+                            <h3>Taxi Freire</h3>
+                            <p><strong>Taxi convencional</strong></p>
+                            <p>(87) 9999-8888</p>
+                            <p class="ui-li-aside"><strong></strong></p>
+                    </a></li>
+                </ul>
+            </div>
+        </div> <!-- taxis-->
+        
+        <!-- TELEFONES UTEIS-->
+        <div data-role="page" id="telefones" data-theme="b" >
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a href="#home" class="bt-logo-header"></a></h1>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <div data-role="collapsible">
+                    <h2>POLÍCIA / BOMBEIROS</h2>
+                    <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+                        <li><a href="tel:190">
+                                <h3>Polícia Militar</h3>
+                                <p>Fone: 190</p>
+                                <p class="ui-li-aside"><strong></strong></p>
+                        </a></li>
+                        <li><a href="tel:199">
+                                <h3>Defesa Civil</h3>
+                                <p>Fone: 199</p>
+                        </a></li>
+                        <li><a href="tel:193">
+                                <h3>Corpo de Bombeiros </h3>
+                                <p><strong>Emergência: 193</strong></p>
+                                <p>Fone: 3862-3472 / 3718</p>
+                        </a></li>
+                        <li><a href="tel:+558738615520">
+                                <h3>1ª Delegacia de Polícia</h3>
+                                <p>Fone: (87) 3861-5520 / 8100</p>
+                        </a></li>
+                        <li><a href="tel:+558738612676">
+                                <h3>2ª Delegacia de Polícia</h3>
+                                <p>Fone: (87) 3861-2676</p>
+                        </a></li>
+                        <li><a href="tel:+558738620028">
+                                <h3>Delegacia da Mulher</h3>
+                                <p>Fone: (87) 3862-0028</p>
+                        </a></li>
+                        <li><a href="tel:+557436112844">
+                                <h3>Polícia Federal</h3>
+                                <p>Fone: (74) 3611-2844</p>
+                        </a></li>
+                    </ul>
+                </div>
+                <div data-role="collapsible">
+                    <h2>HOSPITAIS</h2>
+                    <ul id="list" class="touch" data-role="listview" data-icon="false">
+                        <li><a href="tel:192">
+                                <h3>SAMU</h3>
+                                <p>Emergência: 192</p>
+                        </a></li>
+                        <li><a href="tel:+558738668518">
+                                <h3>Hospital Dom Malan/IMIP</h3>
+                                <p>Fone: (87) 3866-8518 / 8500</p>
+                        </a></li>
+                        <li><a href="tel:+558738611801">
+                                <h3>HIC – Hospital Imaculada Conceição</h3>
+                                <p>Fone: (87) 3861-1801</p>
+                        </a></li>
+                        <li><a href="tel:+558738668750">
+                                <h3>HGU - Hospital Geral e Urgência</h3>
+                                <p>(87) 3866-8750</p>
+                        </a></li>
+                        <li><a href="tel:+558738628900">
+                                <h3>Hospital Memorial Petrolina</h3>
+                                <p>Fone: (87) 3862-8900</p>
+                        </a></li>
+                        <li><a href="tel:+558738611772">
+                                <h3>Hospital Neurocárdio</h3>
+                                <p>Fone: (87) 3861-1772 / 2101-3110</p>
+                        </a></li>
+                    </ul>
+                </div>
+                <div data-role="collapsible">
+                    <h2>ÚTEIS</h2>
+                    <ul id="list" class="touch" data-role="listview" data-icon="false">
+                        <li><a href="tel:+558738633366">
+                                <h3>Aeroporto Internacional Nilo Coelho</h3>
+                                <p><strong>Fone: (87) 3863-3366</strong></p>
+                                <p class="ui-li-aside"><strong></strong></p>
+                        </a></li>
+                        <li><a href="tel:+558721013737">
+                                <h3>River Shopping</h3>
+                                <p>Fone: (87) 2101-3737</p>
+                        </a></li>
+                    </ul>
+                </div>
+                <div data-role="collapsible">
+                    <h2>BANCOS</h2>
+                    <ul id="list" class="touch" data-role="listview" data-icon="false">
+                        <li><a href="tel:+558730359100">
+                                <h3>Banco do Brasil</h3>
+                                <p>Fone: (87) 3035-9100</p>
+                        </a></li>
+                        <li><a href="tel:+558738612878">
+                                <h3>Bradesco</h3>
+                                <p>Fone: (87) 3861-2878</p>
+                        </a></li>
+                        <li><a href="tel:+558738628200">
+                                <h3>Caixa Econômica Federal</h3>
+                                <p>(87) 3862-8200 / 2101-8120</p>
+                        </a></li>
+                        <li><a href="tel:+558738622444">
+                                <h3>Banco Real</h3>
+                                <p>Fone: (87) 3862-2444</p>
+                        </a></li>
+                        <li><a href="tel:+558738622733">
+                                <h3>Itaú</h3>
+                                <p>Fone: (87) 3862-2733</p>
+                        </a></li>
+                        <li><a href="tel:+558738623000">
+                                <h3>HSBC</h3>
+                                <p>Fone: (87) 3862-3000</p>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- telefones-->
+    </body>
+</html>
