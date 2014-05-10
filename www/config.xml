@@ -1,5 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.bigeyessolution.FenagriApp" version="1.0.1">
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.bigeyessolution.FenagriApp"
+    versionCode = "10" 
+    version     = "1.0.1" >
     <name>FenagriApp</name>
     <description>Aplicativo oficical da FENAGRI</description>
     <author email="dev@bigeyessolution.com" href="http://www.bigeyessolution.com">Big Eyes Solution Team</author>
@@ -8,6 +12,7 @@
     <gap:platform name="android" />
     <gap:platform name="winphone" />
     <gap:platform name="blackberry" />
+    <gap:platform name="firefoxos" />
     <icon src="icon.png" />
     <icon src="res/ios/icon-60.png" gap:platform="ios" width="60" height="60" />
     <icon src="res/ios/icon-60@2x.png" gap:platform="ios" width="120" height="120" />
