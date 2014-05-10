@@ -2,35 +2,27 @@
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.bigeyessolution.FenagriApp" version="1.0.0">
     <name>FenagriApp</name>
     <description>
-Na Fenagri, você vai conhecer muitas novidades. 
-Exposição de produtos e serviços voltados para o agronegócio, e uma grande programação de minicursos, rodadas de negócios, 
-palestras, debates e exposição sobre a agricultura familiar, exportação cooperada, fruticultura, novas culturas, associativismo, 
-integração com apicultura, caprino-ovinocultura e piscicultura, intercâmbio comercial, integração entre produtores, 
-comercializadores e exportadores, novos mercados e muito mais. E você, que é produtor, fornecedor ou comercializador, não pode perder!</description>
+        Na Fenagri, você vai conhecer muitas novidades. 
+        Exposição de produtos e serviços voltados para o agronegócio, e uma grande programação de minicursos, rodadas de negócios, 
+        palestras, debates e exposição sobre a agricultura familiar, exportação cooperada, fruticultura, novas culturas, associativismo, 
+        integração com apicultura, caprino-ovinocultura e piscicultura, intercâmbio comercial, integração entre produtores, 
+        comercializadores e exportadores, novos mercados e muito mais. E você, que é produtor, fornecedor ou comercializador, não pode perder!
+    </description>
     <author email="dev@bigeyessolution.com" href="http://www.bigeyessolution.com">Big Eyes Solution Team</author>
     <access origin="*"/>
     <preference name="fullscreen" value="true"/>
     <preference name="webviewbounce" value="true"/>
     <preference name="BackgroundColor" value="0x26262dff"/>
     <preference name="KeepRunning" value="true"/>
-    <!-- Icons -->
     <icon src="icon.png" />
-	<!-- iPhone / iPod Touch  -->
 	<icon src="res/ios/icon-60.png" gap:platform="ios" width="60" height="60" />
 	<icon src="res/ios/icon-60@2x.png" gap:platform="ios" width="120" height="120" />
-
-	<!-- iPad -->
 	<icon src="res/ios/icon-76.png" gap:platform="ios" width="76" height="76" />
 	<icon src="res/ios/icon-76@2x.png" gap:platform="ios" width="152" height="152" />
-
-	<!-- Settings Icon -->
 	<icon src="res/ios/icon-small.png" gap:platform="ios" width="29" height="29" />
 	<icon src="res/ios/icon-small@2x.png" gap:platform="ios" width="58" height="58" />
-
-	<!-- Spotlight Icon -->
 	<icon src="res/ios/icon-40.png" gap:platform="ios" width="40" height="40" />
 	<icon src="res/ios/icon-40@2x.png" gap:platform="ios" width="80" height="80" />
-        
         <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
 	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.6" />
 	<gap:plugin name="org.apache.cordova.dialogs" version="0.2.6" />
