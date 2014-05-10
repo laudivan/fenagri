@@ -25,6 +25,8 @@
             BaseApiURL       = 'http://api.bigeyessolution.com';
             //BaseApiURL       = 'http://localhost:8001';
             ShowInApp        =  false;
+            IsABrowser       =  true;
+            ApiKey           =  '';
             
             MapKey           = 'AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw';
             DefaultMapLat    = -9.3924361; //@todo Onde vair ser a FENAGRI??
@@ -52,50 +54,58 @@
             <div role="main" class="ui-content">
                 <span class="bt-logotipo-frontpage"></span>
                 
-                <div class="menu-list azul estrela"><a href="#afeira" data-transition="slide">A Feira</a></div>
-                
-                <ul data-role="listview" data-inset="true" class="listview">
-                    <li class="verde"><a onclick="showSitesByCategory(1)">
-                        <img src="style/images/icons/turismo.png" class="ui-li-thumb" alt="">
-                        <h2>Turismo</h2>
-                        <p>Pontos turísticos, <wbr>passeios, <wbr>agências, ...</p>
-                        <p class="ui-li-aside">Turismo</p>
-                    </a></li>
-                    <li class="verdeClaro"><a onclick="showSitesByCategory(2)">
-                        <img src="style/images/icons/hoteis.png" class="ui-li-thumb" alt="">
-                        <h2>Hotéis</h2>
-                        <p>As melhores <wbr>hospedagens da <wbr>região.</p>
-                        <p class="ui-li-aside">Hotéis</p>
-                    </a></li>
-                    <li class="azul"><a onclick="showSitesByCategory(3)">
-                        <img src="style/images/icons/restaurantes.png" class="ui-li-thumb" alt="">
-                        <h2>Restaurantes</h2>
-                        <p>Experimente o <wbr>melhor da nossa <wbr>culinária.</p>
-                        <p class="ui-li-aside">Restaurantes</p>
-                    </a></li>
-                    <li class="azulClaro"><a onclick="showSitesByCategory(4)">
-                        <img src="style/images/icons/bares.png" class="ui-li-thumb" alt="">
-                        <h2>Bares</h2>
-                        <p>As melhores <wbr>opções para <wbr>a noitada.</p>
-                        <p class="ui-li-aside">Bares</p>
-                    </a></li>
-                    <li class="verde"><a onclick="showSitesByCategory(5)">
-                        <img src="style/images/icons/lanchonete.png" class="ui-li-thumb" alt="">
-                        <h2>Lanchonetes</h2>
-                        <p>Lanche <wbr>rápido com <wbr>qualidade.</p>
-                        <p class="ui-li-aside">Lanchonetes</p>
-                    </a></li>
-                </ul><!-- Lista de categorias -->
-                <div class="ui-grid-a ui-responsive">
-                    <div class="ui-block-a" style="padding: 5px;">
-                        <div class="menu-list verdeClaro taxi"><a data-transition="slide" href="#taxis">Taxis</a></div>
+                <div class="mainmenu"><div class="mainmenu-inner">
+                    <div data-navid="om-nav" class="tile-bt solid-red-2 margin-5 floatleft onemenu">
+                        <a href="#afeira" class="gradient">
+                            <img src="style/images/icons/star.png" alt="" />
+                            <span class="light-text">A Feira</span>
+                        </a>
                     </div>
-                    <div class="ui-block-b" style="padding: 5px;">
-                        <div class="menu-list azul emergencia"><a data-transition="slide" href="#telefones">Telefones Úteis</a></div>
+                    <div data-navid="om-nav2" class="tile-bt solid-olive margin-5 floatleft onemenu">
+                        <a onclick="showSitesByCategory(1)" class="gradient">
+                            <img src="style/images/icons/turismo.png" alt="" />
+                            <span class="light-text">Turismo</span>
+                        </a>
                     </div>
-                </div>
-                <a data-transition="slideup" href="#about" style="float: right"><img src="style/images/poweredbybe.png" alt=""></a>
+                    <div data-navid="om-nav" class="tile-bt solid-orange-2 margin-5 floatleft onemenu">
+                        <a onclick="showSitesByCategory(2)" class="gradient">
+                            <img src="style/images/icons/hoteis.png" alt="" />
+                            <span class="light-text">Hoteis</span>
+                        </a>
+                    </div>
+                    <div data-navid="om-nav2" class="tile-bt solid-green-2 margin-5 floatleft onemenu">
+                        <a onclick="showSitesByCategory(3)" class="gradient">
+                            <img src="style/images/icons/restaurantes.png" alt="" />
+                            <span class="light-text" style="font-size: 12px;">Restaurantes</span>
+                        </a>
+                    </div>
+                    <div data-navid="om-nav" class="tile-bt solid-blue-2 margin-5 floatleft onemenu">
+                        <a onclick="showSitesByCategory(4)" class="gradient">
+                            <img src="style/images/icons/bares.png" alt="" />
+                            <span class="light-text">Bares</span>
+                        </a>
+                    </div>
+                    <div data-navid="om-nav2" class="tile-bt solid-violetred margin-5 floatleft onemenu">
+                        <a onclick="showSitesByCategory(5)" class="gradient">
+                            <img src="style/images/icons/lanchonete.png" alt="" />
+                            <span class="light-text">Taxi</span>
+                        </a>
+                    </div>
+                    <div data-navid="om-nav" class="tile-bt solid-darkblue margin-5 floatleft onemenu">
+                        <a href="#taxis" class="gradient">
+                            <img src="style/images/icons/taxi.png" alt="" />
+                            <span class="light-text">Taxis</span>
+                        </a>
+                    </div>
+                    <div data-navid="om-nav2" class="tile-bt solid-darkred margin-5 floatleft onemenu">
+                        <a  href="#telefones" class="gradient">
+                            <img src="style/images/icons/emergencia.png" alt="" />
+                            <span class="light-text">Telefones</span>
+                        </a>
+                    </div>
+                </div></div> <!-- Lista de categorias -->
             </div>
+            <a class="copyright" data-transition="slideup" href="#about" style="float: right"><img src="style/images/poweredbybe.png" alt=""></a>
         </div><!-- home page -->
 
         <!-- Listagem de sites-->
@@ -122,27 +132,7 @@
                 <h1><a href="#home" class="bt-logo-header"></a></h1>
             </div>
             
-            <div role="main" data-role="content">                
-                <center><img id="site-logo" alt=""></center>
-
-                <h3 id="site-name"><!-- Nome do estabelecimento --></h3>
-                <hr>
-                <div class="ui-body">
-                    <a id="site-phone"><!-- Número de telefone --></a>
-                    <a id="btn-see-on-map" class="btn-show">
-                        <img src="style/images/icons/see-on-map.png" alt="Ver no mapa">
-                    </a>
-                    <a id="btn-show-itens" class="btn-show">
-                        <img src="style/images/icons/itens-list.png" alt="Lista de itens">
-                    </a>
-                </div>
-                <div  class="ui-body ui-body-c">
-                    <p id="site-text-description"></p>
-                    <p id="site-address"></p>
-                </div>
-                <br>
-                <div id="photos"></div>
-            </div><!-- page content -->
+            <div id="site-description-content" role="main" data-role="content"></div>
         </div> <!-- page site-description -->
 
         <div id="site-map" data-role="page">
