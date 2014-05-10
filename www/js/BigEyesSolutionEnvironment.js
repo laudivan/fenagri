@@ -46,6 +46,7 @@ function bigeyesInit() {
 };
 
 siteDescription = false;
+categoryId = false;
 
 function showSiteDescription(siteId) {
     var siteURL = BaseApiURL + '/whitelabel/' + WhitelabelId + '/site/' + siteId;
@@ -72,8 +73,10 @@ function showSiteDescription(siteId) {
             buttonBar += '<a href="tel:'+data['phone']+'" id="site-phone">'+data['phone']+'</a>';
         }
         
-        buttonBar += '<a onclick="showMapForSite (' + data['latitude'] + ',' + data['longitude'] + ')" id="btn-see-on-map" class="btn-show">';
-        buttonBar += '<img src="style/images/icons/see-on-map.png" alt="Ver no mapa"></a>';
+        if (CategoryWithoutMap.indexOf(categoryId) < 0) {
+            buttonBar += '<a onclick="showMapForSite (' + data['latitude'] + ',' + data['longitude'] + ')" id="btn-see-on-map" class="btn-show">';
+            buttonBar += '<img src="style/images/icons/see-on-map.png" alt="Ver no mapa"></a>';
+        }
 
         if (data['has_offers'] === "1") {
             buttonBar += '<a onclick="showOffersForSite('+siteId+')" id="btn-show-itens" class="btn-show">';
@@ -157,7 +160,8 @@ function showOffersForSite(siteId) {
 }
 ;
 
-function showSitesByCategory(categoryId) {    
+function showSitesByCategory(id) {    
+    categoryId = id;
     
     var categoryURL = BaseApiURL + '/whitelabel/' + WhitelabelId + '/category/' + categoryId + '/site';
     myLat = DefaultMapLat;
@@ -187,10 +191,14 @@ function showSitesByCategory(categoryId) {
             site_id = row['site_id'];
             title = row['title'];
             description = row['description'];
-
-            distance = Math.round(getDistanceFromLatLonInKm(lat, long, myLat, myLong)) / 100;
-            distance = distance < 1 ? (distance * 1000) + 'm' : distance + 'km';
-
+            
+            if (CategoryWithoutMap.indexOf(categoryId) < 0) {
+                distance = '   ';
+            } else {
+                distance = Math.round(getDistanceFromLatLonInKm(lat, long, myLat, myLong)) / 100;
+                distance = distance < 1 ? (distance * 1000) + 'm' : distance + 'km';
+            }
+            
             thumbSize = $(document).width() < 768 ? 80 : 230;
             itens.push('<li data-site="' + site_id + '"><a onclick="showSiteDescription(' + site_id + ')">' +
                     '<img src="' + categoryURL + '/' + site_id + '/logo?thumb=' + thumbSize + '" class="ui-li-thumb" alt="' + title + '">' +
@@ -209,6 +217,20 @@ function showSitesByCategory(categoryId) {
     categoryVisit(categoryId);
 
 };
+
+/* FUNÇÕES DE RETORNO */
+function backToHome () {
+    $.mobile.changePage('#home', {transition: "slide"});
+    $('#site-description-content').empty();
+    $('#sites-ul').empty();
+};
+
+function backToSiteList () {
+    $.mobile.changePage('#sites', {transition: "slide"});
+    $('#site-description-content').empty();
+};
+
+/* EXIBIÇÃO DO MAPA */
 
 mapApiLoaded = false;
 mapOptions = false;

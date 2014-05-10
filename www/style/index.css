@@ -553,13 +553,6 @@ body {
 
 /* END FRONTPAGE LISTVIEW */
 
-.copyright {
-    position: absolute;
-    float: right;
-    right: 10px;
-    bottom: 10px;
-}
-
 /* ONEMENU - Washington */
 .mainmenu {
     width:100%;

@@ -27,6 +27,7 @@
             ShowInApp        =  false;
             IsABrowser       =  true;
             ApiKey           =  '';
+            CategoryWithoutMap = [7];
             
             MapKey           = 'AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw';
             DefaultMapLat    = -9.3924361; //@todo Onde vair ser a FENAGRI??
@@ -85,28 +86,24 @@
                             <span class="light-text">Bares</span>
                         </a>
                     </div>
-                    <!--<div data-navid="om-nav2" class="tile-bt solid-violetred margin-5 floatleft onemenu">
-                        <a onclick="showSitesByCategory(5)" class="gradient">
-                            <img src="style/images/icons/lanchonete.png" alt="" />
-                            <span class="light-text">Lanchonete</span>
-                        </a>
-                    </div>-->
                     <div data-navid="om-nav" class="tile-bt solid-darkblue margin-5 floatleft onemenu">
-                        <a href="#taxis" class="gradient">
+                        <a onclick="showSitesByCategory(7)" class="gradient">
                             <img src="style/images/icons/taxi.png" alt="" />
                             <span class="light-text">Taxis</span>
                         </a>
                     </div>
                 </div></div> <!-- Lista de categorias -->
             </div>
-            <a class="copyright" data-transition="slideup" href="#about" style="float: right"><img src="style/images/poweredbybe.png" alt=""></a>
+            <center>
+                <a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a>
+            </center>
         </div><!-- home page -->
 
         <!-- Listagem de sites-->
         <div data-role="page" data-theme="b" id="sites" class='page-with-list-thumb'>
             <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
-                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
-                <h1><a href="#home" class="bt-logo-header"></a></h1>
+                <a onclick="backToHome ()" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a onclick="backToHome ()" class="bt-logo-header"></a></h1>
             </div>
 
             <div role="main" class="ui-content">
@@ -122,8 +119,8 @@
             </div><!-- Lista de itens: quartos, cardápio, etc -->
             
             <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
-                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
-                <h1><a href="#home" class="bt-logo-header"></a></h1>
+                <a onclick="backToSiteList ()" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a onclick="backToHome ()" class="bt-logo-header"></a></h1>
             </div>
             
             <div id="site-description-content" role="main" data-role="content"></div>
@@ -204,164 +201,5 @@
                 </div>
             </div> <!-- ui-content -->
         </div> <!-- a-feira -->
-        
-        <!-- TAXIS-->
-        <div data-role="page" id="taxis" data-theme="b" >
-            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
-                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
-                <h1><a href="#home" class="bt-logo-header"></a></h1>
-            </div><!-- /header -->
-            <div role="main" class="ui-content">
-                <ul id="list" class="touch" data-role="listview" data-icon="false">
-                    <li><a href="tel:+558799998888">
-                            <h3>Moura Taxi</h3>
-                            <p><strong>Taxi de luxo</strong></p>
-                            <p>(87) 9999-8888</p>
-                            <p class="ui-li-aside"><strong>24 Horas</strong></p>
-                    </a></li>
-                    <li><a href="tel:+558799998888">
-                            <h3>Taxi Freire</h3>
-                            <p><strong>Taxi convencional</strong></p>
-                            <p>(87) 9999-8888</p>
-                            <p class="ui-li-aside"><strong></strong></p>
-                    </a></li>
-                    <li><a href="tel:+558799998888">
-                            <h3>Taxi Freire</h3>
-                            <p><strong>Taxi convencional</strong></p>
-                            <p>(87) 9999-8888</p>
-                            <p class="ui-li-aside"><strong>24 Horas</strong></p>
-                    </a></li>
-                    <li><a href="tel:+558799998888">
-                            <h3>Taxi Freire</h3>
-                            <p><strong>Taxi convencional</strong></p>
-                            <p>(87) 9999-8888</p>
-                            <p class="ui-li-aside"><strong></strong></p>
-                    </a></li>
-                    <li><a href="tel:+558799998888">
-                            <h3>Taxi Freire</h3>
-                            <p><strong>Taxi convencional</strong></p>
-                            <p>(87) 9999-8888</p>
-                            <p class="ui-li-aside"><strong></strong></p>
-                    </a></li>
-                </ul>
-            </div>
-        </div> <!-- taxis-->
-        
-        <!-- TELEFONES UTEIS-->
-        <div data-role="page" id="telefones" data-theme="b" >
-            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
-                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
-                <h1><a href="#home" class="bt-logo-header"></a></h1>
-            </div><!-- /header -->
-            <div role="main" class="ui-content">
-                <div data-role="collapsible">
-                    <h2>POLÍCIA / BOMBEIROS</h2>
-                    <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
-                        <li><a href="tel:190">
-                                <h3>Polícia Militar</h3>
-                                <p>Fone: 190</p>
-                                <p class="ui-li-aside"><strong></strong></p>
-                        </a></li>
-                        <li><a href="tel:199">
-                                <h3>Defesa Civil</h3>
-                                <p>Fone: 199</p>
-                        </a></li>
-                        <li><a href="tel:193">
-                                <h3>Corpo de Bombeiros </h3>
-                                <p><strong>Emergência: 193</strong></p>
-                                <p>Fone: 3862-3472 / 3718</p>
-                        </a></li>
-                        <li><a href="tel:+558738615520">
-                                <h3>1ª Delegacia de Polícia</h3>
-                                <p>Fone: (87) 3861-5520 / 8100</p>
-                        </a></li>
-                        <li><a href="tel:+558738612676">
-                                <h3>2ª Delegacia de Polícia</h3>
-                                <p>Fone: (87) 3861-2676</p>
-                        </a></li>
-                        <li><a href="tel:+558738620028">
-                                <h3>Delegacia da Mulher</h3>
-                                <p>Fone: (87) 3862-0028</p>
-                        </a></li>
-                        <li><a href="tel:+557436112844">
-                                <h3>Polícia Federal</h3>
-                                <p>Fone: (74) 3611-2844</p>
-                        </a></li>
-                    </ul>
-                </div>
-                <div data-role="collapsible">
-                    <h2>HOSPITAIS</h2>
-                    <ul id="list" class="touch" data-role="listview" data-icon="false">
-                        <li><a href="tel:192">
-                                <h3>SAMU</h3>
-                                <p>Emergência: 192</p>
-                        </a></li>
-                        <li><a href="tel:+558738668518">
-                                <h3>Hospital Dom Malan/IMIP</h3>
-                                <p>Fone: (87) 3866-8518 / 8500</p>
-                        </a></li>
-                        <li><a href="tel:+558738611801">
-                                <h3>HIC – Hospital Imaculada Conceição</h3>
-                                <p>Fone: (87) 3861-1801</p>
-                        </a></li>
-                        <li><a href="tel:+558738668750">
-                                <h3>HGU - Hospital Geral e Urgência</h3>
-                                <p>(87) 3866-8750</p>
-                        </a></li>
-                        <li><a href="tel:+558738628900">
-                                <h3>Hospital Memorial Petrolina</h3>
-                                <p>Fone: (87) 3862-8900</p>
-                        </a></li>
-                        <li><a href="tel:+558738611772">
-                                <h3>Hospital Neurocárdio</h3>
-                                <p>Fone: (87) 3861-1772 / 2101-3110</p>
-                        </a></li>
-                    </ul>
-                </div>
-                <div data-role="collapsible">
-                    <h2>ÚTEIS</h2>
-                    <ul id="list" class="touch" data-role="listview" data-icon="false">
-                        <li><a href="tel:+558738633366">
-                                <h3>Aeroporto Internacional Nilo Coelho</h3>
-                                <p><strong>Fone: (87) 3863-3366</strong></p>
-                                <p class="ui-li-aside"><strong></strong></p>
-                        </a></li>
-                        <li><a href="tel:+558721013737">
-                                <h3>River Shopping</h3>
-                                <p>Fone: (87) 2101-3737</p>
-                        </a></li>
-                    </ul>
-                </div>
-                <div data-role="collapsible">
-                    <h2>BANCOS</h2>
-                    <ul id="list" class="touch" data-role="listview" data-icon="false">
-                        <li><a href="tel:+558730359100">
-                                <h3>Banco do Brasil</h3>
-                                <p>Fone: (87) 3035-9100</p>
-                        </a></li>
-                        <li><a href="tel:+558738612878">
-                                <h3>Bradesco</h3>
-                                <p>Fone: (87) 3861-2878</p>
-                        </a></li>
-                        <li><a href="tel:+558738628200">
-                                <h3>Caixa Econômica Federal</h3>
-                                <p>(87) 3862-8200 / 2101-8120</p>
-                        </a></li>
-                        <li><a href="tel:+558738622444">
-                                <h3>Banco Real</h3>
-                                <p>Fone: (87) 3862-2444</p>
-                        </a></li>
-                        <li><a href="tel:+558738622733">
-                                <h3>Itaú</h3>
-                                <p>Fone: (87) 3862-2733</p>
-                        </a></li>
-                        <li><a href="tel:+558738623000">
-                                <h3>HSBC</h3>
-                                <p>Fone: (87) 3862-3000</p>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
-        </div> <!-- telefones-->
     </body>
 </html>
