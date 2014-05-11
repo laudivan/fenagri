@@ -55,48 +55,38 @@
             <div role="main" class="ui-content">
                 <span class="bt-logotipo-frontpage"></span>
                 
-                <div class="mainmenu"><div class="mainmenu-inner">
-                    <div data-navid="om-nav" class="tile-bt solid-red-2 margin-5 floatleft onemenu">
-                        <a href="#afeira" class="gradient">
-                            <img src="style/images/icons/star.png" alt="" />
-                            <span class="light-text">A Feira</span>
-                        </a>
-                    </div>
-                    <div data-navid="om-nav2" class="tile-bt solid-olive margin-5 floatleft onemenu">
-                        <a onclick="showSitesByCategory(1)" class="gradient">
-                            <img src="style/images/icons/turismo.png" alt="" />
-                            <span class="light-text">Turismo</span>
-                        </a>
-                    </div>
-                    <div data-navid="om-nav" class="tile-bt solid-orange-2 margin-5 floatleft onemenu">
-                        <a onclick="showSitesByCategory(2)" class="gradient">
-                            <img src="style/images/icons/hoteis.png" alt="" />
-                            <span class="light-text">Hoteis</span>
-                        </a>
-                    </div>
-                    <div data-navid="om-nav2" class="tile-bt solid-green-2 margin-5 floatleft onemenu">
-                        <a onclick="showSitesByCategory(3)" class="gradient">
-                            <img src="style/images/icons/restaurantes.png" alt="" />
-                            <span class="light-text" style="font-size: 12px;">Restaurantes</span>
-                        </a>
-                    </div>
-                    <div data-navid="om-nav" class="tile-bt solid-blue-2 margin-5 floatleft onemenu">
-                        <a onclick="showSitesByCategory(4)" class="gradient">
-                            <img src="style/images/icons/bares.png" alt="" />
-                            <span class="light-text">Bares</span>
-                        </a>
-                    </div>
-                    <div data-navid="om-nav" class="tile-bt solid-darkblue margin-5 floatleft onemenu">
-                        <a onclick="showSitesByCategory(7)" class="gradient">
-                            <img src="style/images/icons/taxi.png" alt="" />
-                            <span class="light-text">Taxis</span>
-                        </a>
-                    </div>
-                </div></div> <!-- Lista de categorias -->
+                <ul data-role="listview" data-inset="true" class="listview">
+                    <li class="solid-green">
+                        <a href="#afeira">
+                            <img src="style/images/icons/fenagri.png" class="ui-li-thumb" alt="">
+                        <h2>A feira</h2>
+                    </a></li>
+                    <li class="solid-red"><a onclick="showSitesByCategory(1)"  class="gradient">
+                        <img src="style/images/icons/turismo.png" class="ui-li-thumb" alt="">
+                        <h2>Turismo</h2>
+                    </a></li>
+                    <li class="solid-darkblue"><a onclick="showSitesByCategory(2)" class="gradient">
+                        <img src="style/images/icons/hoteis.png" class="ui-li-thumb" alt="">
+                        <h2>Hotéis</h2>
+                    </a></li>
+                    <li class="solid-yellow"><a onclick="showSitesByCategory(3)" class="gradient">
+                        <img src="style/images/icons/restaurantes.png" class="ui-li-thumb" alt="">
+                        <h2>Restaurantes</h2>
+                    </a></li>
+                    <li class="solid-pink"><a onclick="showSitesByCategory(4)" class="gradient">
+                        <img src="style/images/icons/bares.png" class="ui-li-thumb" alt="">
+                        <h2>Bares</h2>
+                    </a></li>
+                    <li class="solid-blue-2"><a onclick="showSitesByCategory(7)" class="gradient">
+                            <img src="style/images/icons/taxi.png" class="ui-li-thumb" alt="">
+                        <h2>Taxi</h2>
+                    </a></li>
+                </ul><!-- Lista de categorias -->
             </div>
-            <center>
+            
+            <div style="width: 100%; text-align: center; position: absolute; bottom: 0;">
                 <a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a>
-            </center>
+            </div>
         </div><!-- home page -->
 
         <!-- Listagem de sites-->
@@ -109,6 +99,10 @@
             <div role="main" class="ui-content">
                 <ul id="sites-ul" data-role="listview" data-filter="true" data-filter-placeholder="Pesquisar..." data-inset="true"></ul>
             </div><!-- listview -->
+            
+            <div style="width: 100%; text-align: center; position: absolute; bottom: 0;">
+                <a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a>
+            </div>
         </div> <!-- Listagem de sites-->
         
         <div data-role="page" data-theme="b" id="site-description" class="ui-responsive-panel">
@@ -173,7 +167,17 @@
                     <p>
                         Este aplicativo foi desenvolvido usando as seguintes tecnologias:
                     </p>
-
+                    <div class="ui-grid-b ui-responsive" style="text-align: center;">
+                        <div class="ui-block-a">
+                            <a href="http://jquery.com/"><img src="style/images/thanks/logo-jquery.png" class="ui-li-thumb" alt=""></a>
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="http://jquerymobile.com/"><img src="style/images/thanks/logo-jqm.png" class="ui-li-thumb" alt=""></a>
+                        </div>
+                        <div class="ui-block-c">
+                            <a href="http://cordova.apache.org/"><img src="style/images/thanks/logo-cordova.png" class="ui-li-thumb" alt=""></a>
+                        </div>
+                    </div>
                 </div>
 
             </div> <!-- /about content main -->
@@ -200,6 +204,10 @@
                     </p>
                 </div>
             </div> <!-- ui-content -->
+            
+            <div style="width: 100%; text-align: center; position: absolute; bottom: 0;">
+                <a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a>
+            </div>
         </div> <!-- a-feira -->
     </body>
 </html>

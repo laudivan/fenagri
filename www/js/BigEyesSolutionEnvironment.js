@@ -31,7 +31,7 @@ function bigeyesInit() {
     
     $(document).scroll(function() {
         if ($('#home').is(':visible')) {
-            if ($(document).scrollTop() > 120) {
+            if ($(document).scrollTop() > 110) {
                 if ($('#front-page-header').hasClass('ui-fixed-hidden')) {
                     $('#front-page-header').toolbar("show");
                 }
