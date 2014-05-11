@@ -29,6 +29,9 @@
     <icon src="res/android/xxhdpi.png" gap:platform="android" gap:density="xxhdpi" />
     <icon src="res/windows-phone/ApplicationIcon.png" gap:platform="winphone" />
     <icon src="res/windows-phone/Background.png" gap:platform="winphone" gap:role="background" />
+	<gap:splash src="splash.png" />
+	<gap:splash src="res/screen/windows-phone/screen.jpg" gap:platform="winphone" />
+	<gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
     <gap:plugin name="org.apache.cordova.geolocation" version="0.3.6" />
     <gap:plugin name="org.apache.cordova.dialogs" version="0.2.6" />
     <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
