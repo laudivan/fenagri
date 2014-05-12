@@ -7,12 +7,9 @@ siteSwiper = false;
 
 function bigeyesInit() {
     if (IsABrowser) {
-        onBrowserReady();
+        $(window).load(onBrowserReady());
     } else {
-        window.setTimeout(function() {
-            navigator.splashscreen.hide();
-        }, 2000);
-        onDeviceReady();
+        document.addEventListener("deviceready", onDeviceReady, false);
     }
     
 
@@ -23,29 +20,6 @@ function bigeyesInit() {
     //Verificar Autenticação
 
     //Carregar informações locais
-
-    $(window).load(function() {
-        $('#front-page-header').toolbar("hide");
-        console.log('Page loaded');
-    });
-
-    $(window).resize(function() {
-        refreshImgListviewSize();
-    });
-    
-    $(document).scroll(function() {
-        if ($('#home').is(':visible')) {
-            if ($(document).scrollTop() > 110) {
-                if ($('#front-page-header').hasClass('ui-fixed-hidden')) {
-                    $('#front-page-header').toolbar("show");
-                }
-            } else {
-                $('#front-page-header').toolbar("hide");
-            }
-        }
-    });
-
-
 
 };
 
@@ -434,6 +408,8 @@ function refreshImgListviewSize() {
 function onDeviceReady () {
     BaseDeviceUrl = BaseApiURL+'whitelabel'+WhitelabelId+'/device/'+device.uuid;
     
+    onBrowserReady();
+    
     if (localStorage.getItem('apikey')) {
         ApiKey = localStorage.getItem('apikey');
     } else {
@@ -441,10 +417,28 @@ function onDeviceReady () {
         // - se sim salvar apikey
         // - senão criar um cadastro de device e salvar apikey
     }
+    
+    navigator.splashscreen.hide();
 };
 
 function onBrowserReady () {
-    
+    $('#front-page-header').toolbar("hide");
+        
+    $(window).resize(function() {
+        refreshImgListviewSize();
+    });
+
+    $(document).scroll(function() {
+        if ($('#home').is(':visible')) {
+            if ($(document).scrollTop() > 110) {
+                if ($('#front-page-header').hasClass('ui-fixed-hidden')) {
+                    $('#front-page-header').toolbar("show");
+                }
+            } else {
+                $('#front-page-header').toolbar("hide");
+            }
+        }
+    });
 };
 
 /* Checkin, voto e comentario */
