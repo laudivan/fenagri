@@ -202,9 +202,10 @@ function showSitesByCategory(id) {
             thumbSize = $(document).width() < 768 ? 80 : 230;
             itens.push('<li data-site="' + site_id + '"><a onclick="showSiteDescription(' + site_id + ')">' +
                     '<img src="' + categoryURL + '/' + site_id + '/logo?thumb=' + thumbSize + '" class="ui-li-thumb" alt="' + title + '">' +
-                    '<h2>' + title + '</h2>' +
-                    '<p class="description-on-list">' + description + '</p>' +
-                    '<p class="ui-li-aside">a ' + distance + '</p></a></li>');
+                    '<h2>' + title + '</h2>');
+//            +
+//                    '<p class="description-on-list">' + description + '</p>' +
+//                    '<p class="ui-li-aside">a ' + distance + '</p></a></li>');
         });
 
         $('#sites-ul').html(itens.join(''));
@@ -436,6 +437,8 @@ function onDeviceReady () {
         // - se sim salvar apikey
         // - senão criar um cadastro de device e salvar apikey
     }
+    
+    navigator.splashscreen.hide();
 };
 
 function onBrowserReady () {
