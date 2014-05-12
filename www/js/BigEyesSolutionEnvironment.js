@@ -106,6 +106,7 @@ function showSiteDescription(siteId) {
     }); //Get Description
 
     $.mobile.changePage('#site-description', {transition: "slide"});
+    $('#desc-footer').toolbar('refresh');
     
     siteVisit();
 };
@@ -189,6 +190,8 @@ function showSitesByCategory(id) {
         $('#sites-ul').html(itens.join(''));
 
         $('#sites-ul').listview('refresh');
+        
+        $('#sites-footer').toolbar('refresh');
     });
 
     $.mobile.changePage('#sites', {transition: "slide"});
@@ -388,7 +391,6 @@ function deg2rad(deg) {
 function refreshImgListviewSize() {
     categoryId = $('#sites-ul').attr('data-category');
 
-
     thumbSize = $(document).width() < 768 ? 80 : 230;
 
     baseUrl = BaseApiURL + '/whitelabel/' + WhitelabelId + '/category/' + categoryId + '/site/';
@@ -402,6 +404,8 @@ function refreshImgListviewSize() {
     });
 
     $('#sites-ul').listview('refresh');
+    
+    $('#sites-footer').toolbar('refresh');
 }
 
 /* Tratamento de ventos */
@@ -433,9 +437,11 @@ function onBrowserReady () {
             if ($(document).scrollTop() > 110) {
                 if ($('#front-page-header').hasClass('ui-fixed-hidden')) {
                     $('#front-page-header').toolbar("show");
+                    $('#front-page-header').toolbar("refresh");
                 }
             } else {
                 $('#front-page-header').toolbar("hide");
+                $('#home-footer').toolbar("refresh");
             }
         }
     });
