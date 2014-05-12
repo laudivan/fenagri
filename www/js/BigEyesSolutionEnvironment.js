@@ -106,7 +106,6 @@ function showSiteDescription(siteId) {
     }); //Get Description
 
     $.mobile.changePage('#site-description', {transition: "slide"});
-    $('#desc-footer').toolbar('refresh');
     
     siteVisit();
 };
@@ -190,8 +189,6 @@ function showSitesByCategory(id) {
         $('#sites-ul').html(itens.join(''));
 
         $('#sites-ul').listview('refresh');
-        
-        $('#sites-footer').toolbar('refresh');
     });
 
     $.mobile.changePage('#sites', {transition: "slide"});
@@ -404,8 +401,6 @@ function refreshImgListviewSize() {
     });
 
     $('#sites-ul').listview('refresh');
-    
-    $('#sites-footer').toolbar('refresh');
 }
 
 /* Tratamento de ventos */
@@ -441,7 +436,6 @@ function onBrowserReady () {
                 }
             } else {
                 $('#front-page-header').toolbar("hide");
-                $('#home-footer').toolbar("refresh");
             }
         }
     });
