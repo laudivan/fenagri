@@ -583,7 +583,7 @@ body {
 
 @media (min-width: 540px) and (max-width: 600px) {
     .frontpage-with-list-thumb .ui-listview {
-        margin: auto auto 0 15%;
+        margin: auto auto 0 6%;
     }
     
     .frontpage-with-list-thumb .ui-listview li {
