@@ -24,10 +24,10 @@ function bigeyesInit() {
 
     //Carregar informações locais
 
-
-    window.onload = function() {
+    $(window).load(function() {
         $('#front-page-header').toolbar("hide");
-    };
+        console.log('Page loaded');
+    });
 
     $(window).resize(function() {
         refreshImgListviewSize();
@@ -292,8 +292,8 @@ function createMap() {
         overviewMapControl: false,
         panControl: false,
         scaleControl: false,
-        mapTypeControl: false,
-        disableDefaultUI: true,
+        mapTypeControl: true,
+        disableDefaultUI: false,
         maxZoom: 19,
         minZoom: 8,
         tilt: 45
@@ -432,7 +432,7 @@ function refreshImgListviewSize() {
 
 /* Tratamento de ventos */
 function onDeviceReady () {
-    BaseDeviceUrl = BaseDeviceUrl+'whitelabel'+WhitelabelId+'/device/'+device.uuid;
+    BaseDeviceUrl = BaseApiURL+'whitelabel'+WhitelabelId+'/device/'+device.uuid;
     
     if (localStorage.getItem('apikey')) {
         ApiKey = localStorage.getItem('apikey');
