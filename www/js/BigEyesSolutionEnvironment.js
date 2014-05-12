@@ -9,8 +9,12 @@ function bigeyesInit() {
     if (IsABrowser) {
         onBrowserReady();
     } else {
+        window.setTimeout(function() {
+            navigator.splashscreen.hide();
+        }, 2000);
         onDeviceReady();
     }
+    
 
     //Verificar conectividade
 
@@ -283,7 +287,7 @@ function createMap() {
         styles: Styles,
         center: siteLocation,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        zoomControl: false,
+        zoomControl: true,
         streetViewControl: false,
         overviewMapControl: false,
         panControl: false,
@@ -437,8 +441,6 @@ function onDeviceReady () {
         // - se sim salvar apikey
         // - senão criar um cadastro de device e salvar apikey
     }
-    
-    navigator.splashscreen.hide();
 };
 
 function onBrowserReady () {
