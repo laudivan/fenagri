@@ -786,21 +786,3 @@ body {
 	background: linear-gradient(-45deg,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.3) 100%); /* W3C */
 }
 .margin-5 { margin:5px; }
-
-@media screen and (orientation: portrait) {
-    @-ms-viewport {
-       width: 320px;
-       user-zoom: fixed;
-       max-zoom: 1;
-       min-zoom: 1;
-    }
-}
-
-@media screen and (orientation: landscape) {
-@-ms-viewport {
-    width: 480px;
-       user-zoom: fixed;
-       max-zoom: 1;
-       min-zoom: 1;
-    }
-}
