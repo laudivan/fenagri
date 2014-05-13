@@ -530,7 +530,7 @@ body {
     transition: all 500ms ease;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 480px) {
     .frontpage-with-list-thumb .ui-listview li,
     .frontpage-with-list-thumb .ui-listview li a.ui-btn {
         width: 120px;
@@ -542,7 +542,7 @@ body {
     }
 }
 
-@media (min-width: 540px) and (max-width: 800px) {
+@media (min-width: 480px) and (max-width: 800px) {
     .frontpage-with-list-thumb .ui-listview li,
     .frontpage-with-list-thumb .ui-listview li a.ui-btn {
         width: 200px;
@@ -586,7 +586,7 @@ body {
 
 @media (min-width: 480px) and (max-width: 540px) {
     .frontpage-with-list-thumb .ui-listview {
-        margin: auto auto 0 10%;
+        margin: auto auto 0 1%;
     }
 
     .frontpage-with-list-thumb .ui-listview li {
