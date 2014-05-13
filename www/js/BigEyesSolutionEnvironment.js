@@ -179,7 +179,10 @@ function showSitesByCategory(id) {
                 distance = distance < 1 ? (distance * 1000) + 'm' : distance + 'km';
             }
             
-            thumbSize = $(document).width() < 768 ? 80 : 230;
+            thumbSize = $(document).width() < 480 ? 130 : 
+                        $(document).width() < 600 ? 200 : 
+                        $(document).width() < 800 ? 250 :
+                        300;
             itens.push('<li data-site="' + site_id + '"><a onclick="showSiteDescription(' + site_id + ')">' +
                     '<img src="' + categoryURL + '/' + site_id +'/thumb/'+thumbSize+ '/logo" class="ui-li-thumb" alt="' + title + '">' +
                     '<h2>' + title + '</h2>');
