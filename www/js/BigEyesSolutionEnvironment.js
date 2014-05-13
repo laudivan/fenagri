@@ -12,7 +12,6 @@ function bigeyesInit() {
         window.setTimeout(function () {navigator.splashscreen.hide();}, 30000);
         document.addEventListener("deviceready", onDeviceReady, false);
     }
-    
 
     //Verificar conectividade
 
@@ -418,6 +417,11 @@ function onDeviceReady () {
         //verfificar se já tem cadastro
         // - se sim salvar apikey
         // - senão criar um cadastro de device e salvar apikey
+    }
+    
+    if (device.platform === 'Win32NT') {
+        $('.copyright').removeClass('ui-footer-fixed');
+        $('.copyright').removeClass('ui-footer-fullscreen');
     }
     
 };
