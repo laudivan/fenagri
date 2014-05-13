@@ -22,6 +22,7 @@
     <preference name="Fullscreen" value="true" />
     <preference name="DisallowOverscroll" value="true"/>
     <preference name="BackgroundColor" value="0xffffffff"/>
+    <preference name="AutoHideSplashScreen" value="false" />
     <icon src="icon.png" />
     <icon src="res/ios/icon-60.png" gap:platform="ios" width="60" height="60" />
     <icon src="res/ios/icon-60@2x.png" gap:platform="ios" width="120" height="120" />
@@ -60,5 +61,4 @@
     <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
     <gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
     <gap:plugin name="org.apache.cordova.vibration" version="0.3.7" />
-	<preference name="AutoHideSplashScreen" value="false" />
 </widget>

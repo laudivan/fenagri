@@ -34,9 +34,7 @@ function showSiteDescription(siteId) {
     
     logoCanv = $(document).width()*0.8;
     
-    logoSize = logoCanv < 400 ? logoCanv : 400;
-    
-    $('#site-description-content').append('<center><img id="site-logo" src="'+siteURL+'/logo?thumb='+logoSize+'"></center>');
+    $('#site-description-content').append('<center><img id="site-logo" src="'+siteURL+'/thumb/'+logoCanv+'/logo"></center>');
 
     $.getJSON(siteURL, function(data) {
 
@@ -95,7 +93,7 @@ function showSiteDescription(siteId) {
 
             $.each(data, function(key, row) {
                 if (row['site_logo'] === "0") {
-                    photos += '<div class="swiper-slide"><img src="' + siteURL + '/media/' + row['id'] + '?thumb=400" alt=""></div>';
+                    photos += '<div class="swiper-slide"><img src="' + siteURL + '/thumb/400/media/' + row['id'] + '" alt=""></div>';
                 }
             });
 
@@ -184,7 +182,7 @@ function showSitesByCategory(id) {
             
             thumbSize = $(document).width() < 768 ? 80 : 230;
             itens.push('<li data-site="' + site_id + '"><a onclick="showSiteDescription(' + site_id + ')">' +
-                    '<img src="' + categoryURL + '/' + site_id + '/logo?thumb=' + thumbSize + '" class="ui-li-thumb" alt="' + title + '">' +
+                    '<img src="' + categoryURL + '/' + site_id +'/thumb/'+thumbSize+ '/logo" class="ui-li-thumb" alt="' + title + '">' +
                     '<h2>' + title + '</h2>');
 //            +
 //                    '<p class="description-on-list">' + description + '</p>' +
@@ -421,6 +419,7 @@ function onDeviceReady () {
         // - se sim salvar apikey
         // - senão criar um cadastro de device e salvar apikey
     }
+    
 };
 
 function onBrowserReady () {
