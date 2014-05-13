@@ -22,8 +22,6 @@ html, body { width: 100%; height: 100% !important; padding: 0; margin: 0; }
 
 h1, h2, h3, h4, h5, h6, a, span, div, input, td, p, body { font-family: sans-serif; }
 
-p, div, span, input {  font-size: 1em; };
-
 body { 
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -433,7 +431,7 @@ body {
     overflow: visible;
     position: absolute;
     bottom: 0 !important;
-    font-size: 16px;
+    font-size: 6px;
     left: 0;
     right: 0;
     text-align: center;
@@ -508,8 +506,9 @@ body {
     background: #111;
     background: rgba(0,0,0,.7);
 }
-.ui-listview .ui-li-has-thumb h2 {
-    bottom: 35%;
+.frontpage-with-list-thumb .ui-listview .ui-li-has-thumb h2 {
+    bottom: 0;
+    margin: 0;
 }
 .ui-listview .ui-li-has-thumb p {
     min-height: 35%;
@@ -526,30 +525,66 @@ body {
 }
 
 @media (max-width: 480px) {
+    p, div, span, input {  font-size: 16px; };
+    
+    .frontpage-with-list-thumb .ui-listview { margin: 1%; }
+    
     .frontpage-with-list-thumb .ui-listview li,
     .frontpage-with-list-thumb .ui-listview li a.ui-btn {
-        width: 120px;
-        height: 120px;
+        width: 130px;
+        height: 130px;
     }
     
     .frontpage-with-list-thumb .ui-listview li {
-        margin: 3%;
+        margin: 1%;
+    }
+    
+    .frontpage-with-list-thumb .ui-listview .ui-li-has-thumb h2 {
+        font-size: 10px;
     }
 }
 
-@media (min-width: 480px) and (max-width: 800px) {
+@media (min-width: 480px) and (max-width: 600px) {
+    p, div, span, input {  font-size: 18px; }
+    
     .frontpage-with-list-thumb .ui-listview li,
     .frontpage-with-list-thumb .ui-listview li a.ui-btn {
         width: 200px;
         height: 200px;
     }
+    
+    
+    .frontpage-with-list-thumb .ui-listview .ui-li-has-thumb h2 {
+        font-size: 14px;
+    }
 }
 
-@media (min-width: 800px) {
+@media (min-width: 600px) and (max-width: 800px) {
+    p, div, span, input {  font-size: 20px; }
+    
     .frontpage-with-list-thumb .ui-listview li,
     .frontpage-with-list-thumb .ui-listview li a.ui-btn {
         width: 250px;
         height: 250px;
+    }
+    
+    
+    .frontpage-with-list-thumb .ui-listview .ui-li-has-thumb h2 {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 800px) {
+    p, div, span, input {  font-size: 24px; }
+    
+    .frontpage-with-list-thumb .ui-listview li,
+    .frontpage-with-list-thumb .ui-listview li a.ui-btn {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .frontpage-with-list-thumb .ui-listview .ui-li-has-thumb h2 {
+        font-size: 24px;
     }
 }
 
@@ -601,7 +636,7 @@ body {
 
 @media (min-width: 600px) and (max-width: 640px) {
     .frontpage-with-list-thumb .ui-listview {
-        margin: auto auto 0 10%;
+        margin: auto auto 0 2%;
     }
     
     .frontpage-with-list-thumb .ui-listview li {
@@ -611,21 +646,21 @@ body {
 
 @media (min-width: 640px) and (max-width: 720px) {
     .frontpage-with-list-thumb .ui-listview {
-        margin: auto auto 0 10%;
+        margin: auto auto 0 5%;
     }
     
     .frontpage-with-list-thumb .ui-listview li {
-        margin: 3.5%;
+        margin: 2%;
     }
 }
 
 @media (min-width: 720px) and (max-width: 768px) {
     .frontpage-with-list-thumb .ui-listview {
-        margin: auto auto 0 15%;
+        margin: auto auto 0 5%;
     }
     
     .frontpage-with-list-thumb .ui-listview li {
-        margin: 3.5%;
+        margin: 4%;
     }
 }
 
@@ -641,7 +676,7 @@ body {
 
 @media (min-width: 768px) and (max-width: 800px) {
     .frontpage-with-list-thumb .ui-listview {
-        margin: auto auto 0 15%;
+        margin: auto auto 0 10%;
     }
     
     .frontpage-with-list-thumb .ui-listview li {
@@ -651,17 +686,17 @@ body {
 
 @media (min-width: 800px) and (max-width: 940px) {
     .frontpage-with-list-thumb .ui-listview {
-        margin: auto auto 0 10%;
+        margin: auto auto 0 5%;
     }
     
     .frontpage-with-list-thumb .ui-listview li {
-        margin: 4%;
+        margin: 3%;
     }
 }
 
-@media (min-width: 940px) {
+@media (min-width: 940px) and (max-width: 1020px) {
     .frontpage-with-list-thumb .ui-listview {
-        margin: auto auto 0 5%;
+        margin: auto auto 0 15%;
     }
     
     .frontpage-with-list-thumb .ui-listview li {
@@ -671,7 +706,7 @@ body {
 
 @media (min-width: 1020px) {
     .frontpage-with-list-thumb .ui-listview {
-        margin: auto auto 0 8%;
+        margin: auto auto 0 5%;
     }
     
     .frontpage-with-list-thumb .ui-listview li {
