@@ -234,6 +234,7 @@ body {
 
 #site-logo {
     width: 80%;
+    max-width: 400px;
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
     -webkit-box-shadow: 0 0 1px 0 #6e6e82;

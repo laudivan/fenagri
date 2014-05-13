@@ -7,12 +7,21 @@
     <name>FENAGRI 2014</name>
     <description>Este é o aplicativo oficical da FENAGRI 2014. Foi desenvolvido especialmente para os visitantes ou àqueles que querem conhecer um pouco mais do potencial turístico e econômico da região.</description>
     <author email="dev@bigeyessolution.com" href="http://www.bigeyessolution.com">Big Eyes Solution Team</author>
-    <access origin="*"/>
+    <access origin="http://127.0.0.1*"/>
+    <access origin="http://*.google.com" />
+    <access origin="https://*.google.com" />
+    <access origin="http://*.bigeyessolution.com" />
+    <access origin="http://*.fenagri2014.com.br" />
     <gap:platform name="ios" />
     <gap:platform name="android" />
     <gap:platform name="winphone" />
     <gap:platform name="blackberry" />
     <gap:platform name="firefoxos" />
+    <preference name="EnableViewportScale" value="true"/>
+    <preference name="SplashScreenDelay" value="30000"/>
+    <preference name="Fullscreen" value="true" />
+    <preference name="DisallowOverscroll" value="true"/>
+    <preference name="BackgroundColor" value="0xffffffff"/>
     <icon src="icon.png" />
     <icon src="res/ios/icon-60.png" gap:platform="ios" width="60" height="60" />
     <icon src="res/ios/icon-60@2x.png" gap:platform="ios" width="120" height="120" />

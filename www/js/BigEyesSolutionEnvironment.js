@@ -9,6 +9,7 @@ function bigeyesInit() {
     if (IsABrowser) {
         $(window).load(onBrowserReady());
     } else {
+        window.setTimeout(function () {navigator.splashscreen.hide();}, 30000);
         document.addEventListener("deviceready", onDeviceReady, false);
     }
     
@@ -31,7 +32,11 @@ function showSiteDescription(siteId) {
 
     $('#site-description-content').empty();
     
-    $('#site-description-content').append('<center><img id="site-logo" src="'+siteURL+'/logo"></center>');
+    logoCanv = $(document).width()*0.8;
+    
+    logoSize = logoCanv < 400 ? logoCanv : 400;
+    
+    $('#site-description-content').append('<center><img id="site-logo" src="'+siteURL+'/logo?thumb='+logoSize+'"></center>');
 
     $.getJSON(siteURL, function(data) {
 
@@ -90,7 +95,7 @@ function showSiteDescription(siteId) {
 
             $.each(data, function(key, row) {
                 if (row['site_logo'] === "0") {
-                    photos += '<div class="swiper-slide"><img src="' + siteURL + '/media/' + row['id'] + '" alt=""></div>';
+                    photos += '<div class="swiper-slide"><img src="' + siteURL + '/media/' + row['id'] + '?thumb=400" alt=""></div>';
                 }
             });
 
@@ -416,8 +421,6 @@ function onDeviceReady () {
         // - se sim salvar apikey
         // - senão criar um cadastro de device e salvar apikey
     }
-    
-    navigator.splashscreen.hide();
 };
 
 function onBrowserReady () {

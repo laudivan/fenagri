@@ -9,7 +9,6 @@
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-
         <link rel="stylesheet" type="text/css" href="style/index.css" />
 
         <script src="js/jquery-2.1.1.min.js"></script>
@@ -52,6 +51,10 @@
             <div id="front-page-header" data-role="header" data-position="fixed" data-fullscreen="true" data-tap-toggle="false">
                 <h1><a href="#home" class="bt-logo-header"></a></h1>
             </div><!-- Header -->
+            <div data-role="footer" data-theme="c" class="ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
+            </div><!--footer -->
+            
             <div role="main" class="ui-content">
                 <span class="bt-logotipo-frontpage"></span>
                 
@@ -83,12 +86,6 @@
                     </a></li>
                 </ul><!-- Lista de categorias -->
             </div>
-            
-            <div class="fixed-copyright">
-                <a data-transition="slideup" href="#about">
-                    <center><img src="style/images/copyright.png" alt=""></center>
-                </a>
-            </div>
         </div><!-- home page -->
 
         <!-- Listagem de sites-->
@@ -102,10 +99,8 @@
                 <ul id="sites-ul" data-role="listview" data-filter="true" data-filter-placeholder="Pesquisar..." data-inset="true"></ul>
             </div><!-- listview -->
             
-            <div class="fixed-copyright">
-                <a data-transition="slideup" href="#about">
-                    <center><img src="style/images/copyright.png" alt=""></center>
-                </a>
+            <div data-role="footer" data-theme="c" class="ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
             </div>
         </div> <!-- Listagem de sites-->
         
@@ -120,7 +115,9 @@
                 <a onclick="backToSiteList ()" class="ui-btn-icon-notext bt-header-back"></a>
                 <h1><a onclick="backToHome ()" class="bt-logo-header"></a></h1>
             </div>
-            
+            <div data-role="footer" data-theme="c" class="ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
+            </div>
             <div id="site-description-content" role="main" data-role="content"></div>
         </div> <!-- page site-description -->
 
@@ -136,7 +133,10 @@
                 <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
                 <h1><a href="#home" class="bt-logo-header"></a></h1>
             </div> <!-- /about header -->
-
+            <div data-role="footer" data-theme="c" class="ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
+            </div><!-- /#about footer -->
+            
             <div class="ui-content" style="text-align: justify;">
                 <div class="ui-body-c">
                     <p style="text-align: center">
@@ -183,7 +183,6 @@
                         </div>
                     </div>
                 </div>
-
             </div> <!-- /about content main -->
         </div> <!-- about page -->
 
@@ -193,7 +192,10 @@
                 <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
                 <h1><a href="#home" class="bt-logo-header"></a></h1>
             </div> <!-- /about header -->
-
+            <div data-role="footer" data-theme="c" class="ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
+            </div>
+            
             <div class="ui-content" style="text-align: justify;">
                 <div class="ui-body-c">
                     <p>
@@ -212,12 +214,6 @@
                     <img src="style/images/palnta.png" alt="" style="width: 100%; height: auto;">
                 </div>
             </div> <!-- ui-content -->
-            
-            <div class="fixed-copyright">
-                <a data-transition="slideup" href="#about">
-                    <center><img src="style/images/copyright.png" alt=""></center>
-                </a>
-            </div>
         </div> <!-- a-feira -->
     </body>
 </html>
