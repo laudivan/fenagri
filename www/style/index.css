@@ -793,9 +793,20 @@ body {
 }
 .margin-5 { margin:5px; }
 
-//Correção de tela para windows phone 8
-@media (width: 480px) and (height: 800px) { @-ms-viewport { width: 480px; height: 800px; user-zoom: fixed; zoom:1; } }
+@media screen and (orientation: portrait) {
+    @-ms-viewport {
+       width: 320px;
+       user-zoom: fixed;
+       max-zoom: 1;
+       min-zoom: 1;
+    }
+}
 
-@media (width: 800px) and (height: 480px) { @-ms-viewport { width: 800px; height: 480px; user-zoom: fixed; zoom:1; } }
-
-//@media (width: 480px) and (height: 800px) { @-ms-viewport { width: 480px; height: 800px; user-zoom: fixed; zoom:1; } }
+@media screen and (orientation: landscape) {
+@-ms-viewport {
+    width: 480px;
+       user-zoom: fixed;
+       max-zoom: 1;
+       min-zoom: 1;
+    }
+}
