@@ -32,11 +32,6 @@ body {
     -ms-text-size-adjust:auto;
 }
 
-@-ms-viewport {
-  width: device-width;
-  height: device-height;
-}
-
 .copyright {}
 
 .bt-header-back {

@@ -9,7 +9,7 @@ function bigeyesInit() {
     if (IsABrowser) {
         $(window).load(onBrowserReady());
     } else {
-        window.setTimeout(function () {navigator.splashscreen.hide();}, 30000);
+        window.setTimeout(function () {navigator.splashscreen.hide();}, 3000);
         document.addEventListener("deviceready", onDeviceReady, false);
     }
 
