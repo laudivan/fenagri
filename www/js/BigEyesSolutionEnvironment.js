@@ -5,22 +5,13 @@
  */
 siteSwiper = false;
 
-function bigeyesInit() {
+function bigeyesInit() {    
     if (IsABrowser) {
         $(window).load(onBrowserReady());
     } else {
         window.setTimeout(function () {navigator.splashscreen.hide();}, 3000);
         document.addEventListener("deviceready", onDeviceReady, false);
     }
-
-    //Verificar conectividade
-
-    //Verificar Geolocalização
-
-    //Verificar Autenticação
-
-    //Carregar informações locais
-
 };
 
 siteDescription = false;
@@ -136,24 +127,14 @@ function showOffersForSite(siteId) {
         });
     });
 
-    $('#site-itens ul').listview('refresh');
-}
-;
+    $('#site-itens ul').listview('refresh');    
+};
 
-function showSitesByCategory(id) {    
+function showSitesByCategory(id) {
     categoryId = id;
     
     var categoryURL = BaseApiURL + '/whitelabel/' + WhitelabelId + '/category/' + categoryId + '/site';
-    myLat = DefaultMapLat;
-    myLong = DefaultMapLon;
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            myLat = position.coords.latitude;
-            myLong = position.coords.longitude;
-        });
-    }
-
+    
     $.getJSON(categoryURL, function(data) {
         var itens = [];
 
@@ -166,19 +147,10 @@ function showSitesByCategory(id) {
         $('#sites-ul').attr('data-category', categoryId);
 
         $.each(data, function(key, row) {
-            lat = row['latitude'];
-            long = row['longitude'];
             site_id = row['site_id'];
             title = row['title'];
             description = row['description'];
-            
-            if (CategoryWithoutMap.indexOf(categoryId) < 0) {
-                distance = '   ';
-            } else {
-                distance = Math.round(getDistanceFromLatLonInKm(lat, long, myLat, myLong)) / 100;
-                distance = distance < 1 ? (distance * 1000) + 'm' : distance + 'km';
-            }
-            
+           
             thumbSize = $(document).width() < 480 ? 130 : 
                         $(document).width() < 600 ? 200 : 
                         $(document).width() < 800 ? 250 :
@@ -186,9 +158,6 @@ function showSitesByCategory(id) {
             itens.push('<li data-site="' + site_id + '"><a onclick="showSiteDescription(' + site_id + ')">' +
                     '<img src="' + categoryURL + '/' + site_id +'/thumb/'+thumbSize+ '/logo" class="ui-li-thumb" alt="' + title + '">' +
                     '<h2>' + title + '</h2>');
-//            +
-//                    '<p class="description-on-list">' + description + '</p>' +
-//                    '<p class="ui-li-aside">a ' + distance + '</p></a></li>');
         });
 
         $('#sites-ul').html(itens.join(''));
@@ -198,19 +167,28 @@ function showSitesByCategory(id) {
 
     $.mobile.changePage('#sites', {transition: "slide"});
     
+//    loading ('hide');
+    
     categoryVisit(categoryId);
-
 };
 
-/* FUNÇÕES DE RETORNO */
-function backToHome () {
+function backToHome() {
     $.mobile.changePage('#home', {transition: "slide"});
     $('#site-description-content').empty();
+    $('#sites-ul').empty();
+}
+
+/* FUNÇÕES DE RETORNO */
+function backSitesToHome () {
+    //$.mobile.changePage('#home', {transition: "slide"});
+    //$('#site-description-content').empty();
+    window.history.back();
     $('#sites-ul').empty();
 };
 
 function backToSiteList () {
-    $.mobile.changePage('#sites', {transition: "slide"});
+    //$.mobile.changePage('#sites', {transition: "slide"});
+    window.history.back();
     $('#site-description-content').empty();
 };
 
@@ -417,7 +395,8 @@ function onDeviceReady () {
     if (localStorage.getItem('apikey')) {
         ApiKey = localStorage.getItem('apikey');
     } else {
-        //verfificar se já tem cadastro
+        //DeviceURL = BaseApiURL+'/device/'+device.uuid;
+        //$.getJSON();//verfificar se já tem cadastro
         // - se sim salvar apikey
         // - senão criar um cadastro de device e salvar apikey
     }
@@ -425,9 +404,12 @@ function onDeviceReady () {
     if (device.platform === 'Win32NT') {
         $('.copyright').removeClass('ui-footer-fixed');
         $('.copyright').removeClass('ui-footer-fullscreen');
+        $('.copyright').addClass('copyright-wp8');
     }
     
 };
+
+
 
 function onBrowserReady () {
     $('#front-page-header').toolbar("hide");
@@ -438,12 +420,10 @@ function onBrowserReady () {
 
     $(document).scroll(function() {
         if ($('#home').is(':visible')) {
-            if ($(document).scrollTop() > 110) {
-                if ($('#front-page-header').hasClass('ui-fixed-hidden')) {
-                    $('#front-page-header').toolbar("show");
-                    $('#front-page-header').toolbar("refresh");
-                }
-            } else {
+            if ($('#front-page-header').hasClass('ui-fixed-hidden') && $(document).scrollTop() > 150) {
+                $('#front-page-header').toolbar("show");
+                $('#front-page-header').toolbar("refresh");
+            } else if ( $(document).scrollTop() < 50 ) {
                 $('#front-page-header').toolbar("hide");
             }
         }
@@ -467,4 +447,10 @@ function siteVisit (siteId) {
 function voteOnSite () {
     
 };
+
+function loading(showOrHide) {
+    setTimeout(function(){
+        $.mobile.loading(showOrHide);
+    }, 1); 
+}
 

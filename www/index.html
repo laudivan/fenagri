@@ -24,7 +24,7 @@
             BaseApiURL       = 'http://api.bigeyessolution.com';
             //BaseApiURL       = 'http://localhost:8001';
             ShowInApp        =  true;
-            IsABrowser       =  false;
+            IsABrowser       =  true;
             ApiKey           =  '';
             CategoryWithoutMap = [7];
             
@@ -92,8 +92,8 @@
         <!-- Listagem de sites-->
         <div data-role="page" data-theme="b" id="sites" class='frontpage-with-list-thumb'>
             <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
-                <a onclick="backToHome ()" class="ui-btn-icon-notext bt-header-back"></a>
-                <h1><a onclick="backToHome ()" class="bt-logo-header"></a></h1>
+                <a onclick="backSitesToHome ()" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a onclick="backSitesToHome ()" class="bt-logo-header"></a></h1>
             </div>
 
             <div role="main" class="ui-content">
@@ -134,8 +134,8 @@
         <!-- SOBRE A SOLUCAO-->
         <div data-role="page" data-theme="b" id="about">
             <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
-                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
-                <h1><a href="#home" class="bt-logo-header"></a></h1>
+                <a data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a onclick="backToHome()" class="bt-logo-header"></a></h1>
             </div> <!-- /about header -->
             
             <div class="ui-content" style="text-align: justify;">
@@ -194,8 +194,8 @@
         <!-- A FEIRA-->
         <div data-role="page" data-theme="b" id="afeira">
             <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
-                <a href="#home" data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
-                <h1><a href="#home" class="bt-logo-header"></a></h1>
+                <a data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a onclick="backToHome()" class="bt-logo-header"></a></h1>
             </div> <!-- /about header -->
             
             <div class="ui-content" style="text-align: justify;">
