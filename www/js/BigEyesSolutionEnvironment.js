@@ -132,8 +132,24 @@ function showOffersForSite(siteId) {
 
 function showSitesByCategory(id) {
     if (!isConnected()) {
-        
-        navigator.notification.alert('Uma conexão de dados é necessária para acessar esta lista.', 
+        switch (id) {
+            case 1:
+                msg = "Você precisa de uma conexão de dados para ter acesso aos pontos turísticos.";
+                break;
+            case 2:
+                msg = "Nossas informações sobre hotéis estão todas na Internet. Por favor, conecte-se tente novamente.";
+                break;
+            case 3:
+                msg = "Estando conectado a Internet você terá acesso à lista atualizada de nossos melhores restaurantes.";
+                break;
+            case 4:
+                msg = "Utilize uma conexão de dados ou WiFi para escolher dentre os melhores bares da região.";
+                break;
+            case 7:
+                msg = "Precisando de um taxi? Conecte-se e escolha um dentre os melhores serviços da região.";
+                break;
+        }
+        navigator.notification.alert(msg, 
             function () {}, 
             "Conexão requerida", 'OK'
         );
