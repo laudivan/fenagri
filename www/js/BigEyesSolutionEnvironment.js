@@ -12,10 +12,6 @@ function bigeyesInit() {
         window.setTimeout(function () {navigator.splashscreen.hide();}, 3000);
         document.addEventListener("deviceready", onDeviceReady, false);
     }
-    
-    $(document).on('click', function(){
-        if (!IsABrowser) navigator.notification.vibrate(5);
-    });
 };
 
 siteDescription = false;
