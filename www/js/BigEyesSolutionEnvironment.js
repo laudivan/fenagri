@@ -137,13 +137,13 @@ function showSitesByCategory(id) {
                 msg = "Você precisa de uma conexão de dados para ter acesso aos pontos turísticos.";
                 break;
             case 2:
-                msg = "Nossas informações sobre hotéis estão todas na Internet. Por favor, conecte-se tente novamente.";
+                msg = "Nossas informações sobre hotéis estão todas na Internet. Por favor, conecte-se e tente novamente.";
                 break;
             case 3:
-                msg = "Estando conectado a Internet você terá acesso à lista atualizada de nossos melhores restaurantes.";
+                msg = "Estando conectado(a) a Internet você terá acesso à lista atualizada de nossos melhores restaurantes.";
                 break;
             case 4:
-                msg = "Utilize uma conexão de dados ou WiFi para escolher dentre os melhores bares da região.";
+                msg = "Utilize uma conexão de dados ou Wi-Fi para conhecer os melhores bares da região.";
                 break;
             case 7:
                 msg = "Precisando de um taxi? Conecte-se e escolha um dentre os melhores serviços da região.";
@@ -452,13 +452,14 @@ function onDeviceReady () {
     
     //Contando a quantidade de acessos
     if (localStorage.getItem('BECount')) {
-        if (localStorage.getItem('BECount') !== -1)
-            localStorage.setItem('BECount', getItem('BECount')+1);
+        count = parseInt(localStorage.getItem('BECount'));
+        if ( count !== -1)
+            localStorage.setItem('BECount', count+1);
     }else{
         localStorage.setItem('BECount', 1);
     }
     
-    if (localStorage.getItem('BECount') === 10) {
+    if (localStorage.getItem('BECount') === "10") {
         localStorage.setItem('BECount', -1);
         $.mobile.changePage('#vote');
     }
