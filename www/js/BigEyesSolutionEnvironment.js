@@ -428,10 +428,39 @@ function onDeviceReady () {
         // - senão criar um cadastro de device e salvar apikey
     }
     
-    if (device.platform === 'Win32NT') {
-        $('.copyright').removeClass('ui-footer-fixed');
-        $('.copyright').removeClass('ui-footer-fullscreen');
-        $('.copyright').addClass('copyright-wp8');
+    switch (device.platform) {
+        case 'Win32NT':
+            $('.copyright').removeClass('ui-footer-fixed');
+            $('.copyright').removeClass('ui-footer-fullscreen');
+            $('.copyright').addClass('copyright-wp8');
+            $('#nome-store').html('Windows Phone Store');
+            $('#nome-store,#link-store').attr('href','http://www.windowsphone.com/pt-br/store');
+            break;
+        case 'Android':
+            $('#nome-store').html('Google Play Store');
+            $('#nome-store,#link-store').attr('href','https://play.google.com/store');
+            break;
+        case 'iOS':
+            $('#nome-store').html('Apple Store');
+            $('#nome-store,#link-store').attr('href','http://www.apple.com/');
+            break;
+        case 'BlackBerry 10':
+            $('#nome-store').html('App World');
+            $('#nome-store,#link-store').attr('href','https://appworld.blackberry.com');
+            break;
+    }
+    
+    //Contando a quantidade de acessos
+    if (localStorage.getItem('BECount')) {
+        if (localStorage.getItem('BECount') !== -1)
+            localStorage.setItem('BECount', getItem('BECount')+1);
+    }else{
+        localStorage.setItem('BECount', 1);
+    }
+    
+    if (localStorage.getItem('BECount') === 10) {
+        localStorage.setItem('BECount', -1);
+        $.mobile.changePage('#vote');
     }
     
 };

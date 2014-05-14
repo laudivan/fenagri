@@ -10,6 +10,10 @@
     <access origin="http://127.0.0.1*"/>
     <access origin="http://*.google.com" />
     <access origin="https://*.google.com" />
+    <access origin="http://*.apple.com" />
+    <access origin="https://*.apple.com" />
+    <access origin="http://*.blackberry.com" />
+    <access origin="https://*.blackberry.com" />
     <access origin="http://*.bigeyessolution.com" />
     <access origin="http://*.fenagri2014.com.br" />
     <gap:platform name="ios" />
