@@ -12,6 +12,10 @@ function bigeyesInit() {
         window.setTimeout(function () {navigator.splashscreen.hide();}, 3000);
         document.addEventListener("deviceready", onDeviceReady, false);
     }
+    
+    $(document).on('pagechange', function(){
+        if (!IsABrowser) navigator.notification.vibrate(1500);
+    });
 };
 
 siteDescription = false;
@@ -131,6 +135,17 @@ function showOffersForSite(siteId) {
 };
 
 function showSitesByCategory(id) {
+    if (!isConnected()) {
+        
+        navigator.notification.alert('Uma conexão de dados é necessária para acessar esta lista.', 
+            function () {}, 
+            "Conexão requerida", 'OK'
+        );
+        
+        backToHome();
+        return;
+    }    
+    
     categoryId = id;
     
     var categoryURL = BaseApiURL + '/whitelabel/' + WhitelabelId + '/category/' + categoryId + '/site';
@@ -429,6 +444,12 @@ function onBrowserReady () {
         }
     });
 };
+
+function isConnected () {
+    if (IsABrowser) return true;
+    
+    return navigator.connection.type !== Connection.NONE;
+}
 
 /* Checkin, voto e comentario */
 
