@@ -13,8 +13,8 @@ function bigeyesInit() {
         document.addEventListener("deviceready", onDeviceReady, false);
     }
     
-    $(document).on('pagechange', function(){
-        if (!IsABrowser) navigator.notification.vibrate(1500);
+    $(document).on('click', function(){
+        if (!IsABrowser) navigator.notification.vibrate(100);
     });
 };
 
