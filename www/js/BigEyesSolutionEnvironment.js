@@ -14,7 +14,7 @@ function bigeyesInit() {
     }
     
     $(document).on('click', function(){
-        if (!IsABrowser) navigator.notification.vibrate(100);
+        if (!IsABrowser) navigator.notification.vibrate(1);
     });
 };
 
