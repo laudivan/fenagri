@@ -195,8 +195,6 @@ function showSitesByCategory(id) {
 
     $.mobile.changePage('#sites', {transition: "slide"});
     
-//    loading ('hide');
-    
     categoryVisit(categoryId);
 };
 
@@ -208,17 +206,13 @@ function backToHome() {
 
 /* FUNÇÕES DE RETORNO */
 function backSitesToHome () {
-    //$.mobile.changePage('#home', {transition: "slide"});
-    //$('#site-description-content').empty();
     window.history.back();
     $('#sites-ul').empty();
 };
 
 function backToSiteList () {
-    //$.mobile.changePage('#sites', {transition: "slide"});
     window.history.back();
     $('#site-description-content').empty();
-    backFromMap();
 };
 
 /* EXIBIÇÃO DO MAPA */
