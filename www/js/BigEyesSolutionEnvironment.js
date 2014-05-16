@@ -265,34 +265,32 @@ function showMap () {
  * Cria o elemento do Mapa para ser exibido.
  */
 function createMap() {
-    $.getScript('js/jquery.ui.map.full.min.js', function () {
-        siteLat = siteDescription['latitude'];
-        siteLog = siteDescription['longitude'];
-        
-        siteLocation = new google.maps.LatLng(siteLat, siteLog);
-        
-        mapOptions = {
-            zoom: MapZoomDefault,
-            backgroundColor: '#26262d',
-            styles: Styles,
-            center: siteLocation,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            zoomControl: true,
-            scrollwheel: true,
-            disableDoubleClickZoom: false,
-            streetViewControl: false,
-            overviewMapControl: false,
-            panControl: false,
-            scaleControl: false,
-            mapTypeControl: true,
-            disableDefaultUI: false,
-            maxZoom: 19,
-            minZoom: 8
-        };
-        
-        $('#map-canvas').gmap (mapOptions).bind('init', function (){
-            setSiteMarker();
-        });
+    siteLat = siteDescription['latitude'];
+    siteLog = siteDescription['longitude'];
+
+    siteLocation = new google.maps.LatLng(siteLat, siteLog);
+
+    mapOptions = {
+        zoom: MapZoomDefault,
+        backgroundColor: '#26262d',
+        styles: Styles,
+        center: siteLocation,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoomControl: true,
+        scrollwheel: true,
+        disableDoubleClickZoom: false,
+        streetViewControl: false,
+        overviewMapControl: false,
+        panControl: false,
+        scaleControl: false,
+        mapTypeControl: true,
+        disableDefaultUI: false,
+        maxZoom: 19,
+        minZoom: 8
+    };
+
+    $('#map-canvas').gmap (mapOptions).bind('init', function (){
+        setSiteMarker();
     });
 }
 
