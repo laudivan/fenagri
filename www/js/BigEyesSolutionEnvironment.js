@@ -229,7 +229,9 @@ function prepareMapForSite(lat, log) {
     Styles = MapStyles;
 
     if (!mapApiLoaded) {
-        $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&async=3&callback=createMap&visual_refresh=true", function() {
+        $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=false&callback=createMap", function() {
+            $('<script src="js/jquery.ui.map.full.min.js"></script>').appendTo('head');
+            
             mapApiLoaded = true;
 
             $.ajaxSetup({cache: false});
@@ -258,8 +260,13 @@ function showMap () {
  * Cria o elemento do Mapa para ser exibido.
  */
 function createMap() {
-    siteLat = siteDescription['latitude'];
-    siteLog = siteDescription['longitude'];
+    if (siteDescription['latitude']) {
+        siteLat = siteDescription['latitude'];
+        siteLog = siteDescription['longitude'];
+    } else {
+        siteLat = DefaultMapLat;
+        siteLog = DefaultMapLon;
+    }
 
     siteLocation = new google.maps.LatLng(siteLat, siteLog);
 
@@ -445,16 +452,16 @@ function onDeviceReady () {
             'Está gostando do aplicativo da FENAGRI? Então vá a '+storeName+' e mostre a sua opnião.',
              function (btIndex) { 
                  if (btIndex === 1) {
-                     localStorage.setItem('BECount', 0);
+                     localStorage.setItem('BECount', -1);
+                     window.open(storeLink, '_blank');
                  } else if (btIndex === 2) {
-                     localStorage.setItem('BECount', -1);
+                     localStorage.setItem('BECount', 0);
                  } else {
-                     localStorage.setItem('BECount', -1);
-                     loadUrl(storeLink);
+                     localStorage.setItem('BECount', 0);
                  }
              },
             'Mostre-nos a sua opnião sobre o aplicativo',
-            ['Agora não!', 'Não mostre mais essa mensagem!','Ok, vamos lá!', '']
+            ['Vamos lá!', 'Depois.','Nunca.', '']
         );
         
         
@@ -478,6 +485,8 @@ function onBrowserReady () {
             }
         }
     });
+    
+    createMap();
 };
 
 function isConnected () {
