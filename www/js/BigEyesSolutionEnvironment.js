@@ -45,7 +45,8 @@ function showSiteDescription(siteId) {
         }
         
         if (CategoryWithoutMap.indexOf(categoryId) < 0) {
-            buttonBar += '<a onclick="showMapForSite (' + data['latitude'] + ',' + data['longitude'] + ')" id="btn-see-on-map" class="btn-show">';
+            prepareMapForSite(data['latitude'], data['longitude']);
+            buttonBar += '<a onclick="showMap ()" id="btn-see-on-map" class="btn-show">';
             buttonBar += '<img src="style/images/icons/see-on-map.png" alt="Ver no mapa"></a>';
         }
 
@@ -217,6 +218,7 @@ function backToSiteList () {
     //$.mobile.changePage('#sites', {transition: "slide"});
     window.history.back();
     $('#site-description-content').empty();
+    backFromMap();
 };
 
 /* EXIBIÇÃO DO MAPA */
@@ -228,12 +230,12 @@ siteMarker = false;
 clientMarker = false;
 logLatList = [];
 
-function showMapForSite(lat, log) {
+function prepareMapForSite(lat, log) {
     Zoom = MapZoomDefault;
     Styles = MapStyles;
 
     if (!mapApiLoaded) {
-        $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&async=3&callback=createMap", function() {
+        $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&async=3&callback=createMap&visual_refresh=true", function() {
             mapApiLoaded = true;
 
             $.ajaxSetup({cache: false});
@@ -244,58 +246,54 @@ function showMapForSite(lat, log) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(setClientMarker);
         }
+        
+        $('#map-canvas').gmap('refresh');
 
-        bounds = new google.maps.LatLngBounds();
-        for (var i = 0, LtLgLen = logLatList.length; i < LtLgLen; i++) {
-            bounds.extend(logLatList[i]);
-        }
-        //  Fit these bounds to the map
-        mapObj.fitBounds(bounds);
     }
-
-    $.mobile.changePage('#site-map', {transition: "slide"});
 };
+
+function showMap () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(setClientMarker);
+    }
+    
+    $.mobile.changePage('#site-map', {transition: 'slide'});
+    $('#map-canvas').gmap('refresh');
+}
 
 /**
  * Cria o elemento do Mapa para ser exibido.
  */
 function createMap() {
-    siteLat = siteDescription['latitude'];
-    siteLog = siteDescription['longitude'];
-
-    siteLocation = new google.maps.LatLng(siteLat, siteLog);
-
-    mapOptions = {
-        zoom: MapZoomDefault,
-        backgroundColor: '#26262d',
-        styles: Styles,
-        center: siteLocation,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        zoomControl: true,
-        streetViewControl: false,
-        overviewMapControl: false,
-        panControl: false,
-        scaleControl: false,
-        mapTypeControl: true,
-        disableDefaultUI: false,
-        maxZoom: 19,
-        minZoom: 8,
-        tilt: 45
-    };
-
-    mapObj = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-    setSiteMarker();
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(setClientMarker);
-    }
-
-    bounds = new google.maps.LatLngBounds();
-    for (var i = 0, LtLgLen = logLatList.length; i < LtLgLen; i++) {
-        bounds.extend(logLatList[i]);
-    }
-    mapObj.fitBounds(bounds);
+    $.getScript('js/jquery.ui.map.full.min.js', function () {
+        siteLat = siteDescription['latitude'];
+        siteLog = siteDescription['longitude'];
+        
+        siteLocation = new google.maps.LatLng(siteLat, siteLog);
+        
+        mapOptions = {
+            zoom: MapZoomDefault,
+            backgroundColor: '#26262d',
+            styles: Styles,
+            center: siteLocation,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoomControl: true,
+            scrollwheel: true,
+            disableDoubleClickZoom: false,
+            streetViewControl: false,
+            overviewMapControl: false,
+            panControl: false,
+            scaleControl: false,
+            mapTypeControl: true,
+            disableDefaultUI: false,
+            maxZoom: 19,
+            minZoom: 8
+        };
+        
+        $('#map-canvas').gmap (mapOptions).bind('init', function (){
+            setSiteMarker();
+        });
+    });
 }
 
 /**
@@ -305,20 +303,15 @@ function setSiteMarker() {
     siteLat = siteDescription['latitude'];
     siteLog = siteDescription['longitude'];
 
-    siteLocation = new google.maps.LatLng(siteLat, siteLog);
-
-    logLatList.push(siteLocation);
-
-    mapObj.setCenter(siteLocation);
-
-    siteMarker = new google.maps.Marker({
-        map: mapObj,
-        position: siteLocation,
-        animation: google.maps.Animation.DROP,
-        icon: 'style/images/icons/site-location.png',
-        title: siteDescription['title'],
-        visible: true
-    });
+    $('#map-canvas').gmap('addMarker', { 
+            id:'site', 
+            'position': siteLat+','+siteLog, 
+            icon: 'style/images/icons/site-location.png', 
+            'bounds': true 
+        } 
+    );
+    
+    $('#map-canvas').gmap('refresh');
 }
 
 /**
@@ -329,16 +322,19 @@ function setSiteMarker() {
 function setClientMarker(position) {
     lat = position.coords.latitude;
     log = position.coords.longitude;
-
-    clientLocation = new google.maps.LatLng(lat, log);
-    logLatList.push(clientLocation);
-
-    siteMarker = new google.maps.Marker({
-        map: mapObj,
-        position: clientLocation,
-        icon: 'style/images/icons/user-location.png',
-        visible: true
+    
+    var clientMarker = $('#map-canvas').gmap('get', 'markers > client'); 
+    
+    if (clientMarker) clientMarker.setMap(null);
+    
+    $('#map-canvas').gmap('addMarker', { 
+        id:'client', 
+        'position': lat+','+log, 
+        icon: 'style/images/icons/user-location.png', 
+        'bounds': true 
     });
+    
+    $('#map-canvas').gmap('refresh');
 }
 
 /**
@@ -346,12 +342,10 @@ function setClientMarker(position) {
  */
 function backFromMap() {
     window.history.back();
-    logLatList = [];
-
-    siteMarker.setMap(null);
-    siteMarker = null;
-    clientMarker.setMap(null);
-    clientMarker = null;
+    
+    $('#map-canvas').gmap('set', 'bounds', null);
+    
+    $('#map-canvas').gmap('clear', 'markers');
 }
 
 /* ==== Funções de distancia ==== */
@@ -433,20 +427,20 @@ function onDeviceReady () {
             $('.copyright').removeClass('ui-footer-fixed');
             $('.copyright').removeClass('ui-footer-fullscreen');
             $('.copyright').addClass('copyright-wp8');
-            $('#nome-store').html('Windows Phone Store');
-            $('#nome-store,#link-store').attr('href','http://www.windowsphone.com/pt-br/store');
+            storeName = 'Windows Phone Store';
+            storeLink = 'http://www.windowsphone.com/pt-br/store';
             break;
         case 'Android':
-            $('#nome-store').html('Google Play Store');
-            $('#nome-store,#link-store').attr('href','https://play.google.com/store');
+            storeName = 'Google Play Store';
+            storeLink = 'https://play.google.com/store';
             break;
         case 'iOS':
-            $('#nome-store').html('Apple Store');
-            $('#nome-store,#link-store').attr('href','http://www.apple.com/');
+            storeName = 'Apple Store';
+            storeLink = 'http://www.apple.com/';
             break;
         case 'BlackBerry 10':
-            $('#nome-store').html('App World');
-            $('#nome-store,#link-store').attr('href','https://appworld.blackberry.com');
+            storeName = 'App World';
+            storeLink = 'href','https://appworld.blackberry.com';
             break;
     }
     
@@ -459,11 +453,25 @@ function onDeviceReady () {
         localStorage.setItem('BECount', 1);
     }
     
-    if (localStorage.getItem('BECount') === "10") {
-        localStorage.setItem('BECount', -1);
-        $.mobile.changePage('#vote');
+    if (localStorage.getItem('BECount') === "5") {
+        navigator.notification.confirm(
+            'Está gostando do aplicativo da FENAGRI? Então vá a '+storeName+' e mostre a sua opnião.',
+             function (btIndex) { 
+                 if (btIndex === 1) {
+                     localStorage.setItem('BECount', 0);
+                 } else if (btIndex === 2) {
+                     localStorage.setItem('BECount', -1);
+                 } else {
+                     localStorage.setItem('BECount', -1);
+                     loadUrl(storeLink);
+                 }
+             },
+            'Mostre-nos a sua opnião sobre o aplicativo',
+            ['Agora não!', 'Não mostre mais essa mensagem!','Ok, vamos lá!', '']
+        );
+        
+        
     }
-    
 };
 
 
