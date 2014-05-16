@@ -241,11 +241,10 @@ function prepareMapForSite(lat, log) {
             $.ajaxSetup({cache: false});
         });
     } else {
-        setSiteMarker();
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(setClientMarker);
-        }
+        $('#map-canvas').gmap('destroy');
+        mapObj = false;
+        
+        createMap();
         
         $('#map-canvas').gmap('refresh');
 
@@ -290,7 +289,15 @@ function createMap() {
     };
 
     $('#map-canvas').gmap (mapOptions).bind('init', function (){
+        mapObj =  $('#map_canvas').gmap('get','map');
+        
         setSiteMarker();
+        
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(setClientMarker);
+        }
+        
+        $('#map-canvas').gmap('refresh');
     });
 }
 
@@ -308,8 +315,6 @@ function setSiteMarker() {
             'bounds': true 
         } 
     );
-    
-    $('#map-canvas').gmap('refresh');
 }
 
 /**
@@ -321,18 +326,12 @@ function setClientMarker(position) {
     lat = position.coords.latitude;
     log = position.coords.longitude;
     
-    var clientMarker = $('#map-canvas').gmap('get', 'markers > client'); 
-    
-    if (clientMarker) clientMarker.setMap(null);
-    
     $('#map-canvas').gmap('addMarker', { 
         id:'client', 
         'position': lat+','+log, 
         icon: 'style/images/icons/user-location.png', 
         'bounds': true 
     });
-    
-    $('#map-canvas').gmap('refresh');
 }
 
 /**
@@ -340,10 +339,6 @@ function setClientMarker(position) {
  */
 function backFromMap() {
     window.history.back();
-    
-    $('#map-canvas').gmap('set', 'bounds', null);
-    
-    $('#map-canvas').gmap('clear', 'markers');
 }
 
 /* ==== Funções de distancia ==== */
@@ -471,8 +466,6 @@ function onDeviceReady () {
         
     }
 };
-
-
 
 function onBrowserReady () {
     $('#front-page-header').toolbar("hide");
