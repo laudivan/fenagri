@@ -269,7 +269,7 @@ function createMap() {
         styles: Styles,
         center: siteLocation,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        zoomControl: true,
+        zoomControl: false,
         scrollwheel: true,
         disableDoubleClickZoom: false,
         streetViewControl: false,
