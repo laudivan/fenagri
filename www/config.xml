@@ -3,7 +3,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "com.bigeyessolution.FenagriApp"
     versionCode = "10" 
-    version     = "1.0.33" >
+    version     = "1.0.4" >
     <name>FENAGRI 2014</name>
     <description>Este é o aplicativo oficical da FENAGRI 2014. Foi desenvolvido especialmente para os visitantes ou àqueles que querem conhecer um pouco mais do potencial turístico e econômico da região.</description>
     <author email="dev@bigeyessolution.com" href="http://www.bigeyessolution.com">Big Eyes Solution Team</author>
@@ -21,10 +21,8 @@
     <gap:platform name="winphone" />
     <gap:platform name="blackberry" />
     <gap:platform name="firefoxos" />
-    <preference name="EnableViewportScale" value="true"/>
     <preference name="SplashScreenDelay" value="3000"/>
     <preference name="Fullscreen" value="true" />
-    <preference name="DisallowOverscroll" value="true"/>
     <preference name="BackgroundColor" value="0xffffffff"/>
     <preference name="AutoHideSplashScreen" value="true" />
     <icon src="icon.png" />
