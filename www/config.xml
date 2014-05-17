@@ -63,4 +63,5 @@
     <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
     <gap:plugin name="org.apache.cordova.device-orientation" version="0.3.5" />
     <gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
+    <gap:plugin name="org.apache.cordova.console" version="0.2.7" />
 </widget>

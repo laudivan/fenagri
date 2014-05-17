@@ -46,7 +46,7 @@ function showSiteDescription(siteId) {
         
         if (CategoryWithoutMap.indexOf(categoryId) < 0) {
             ;
-            buttonBar += '<a onclick="prepareMapForSite('+data['latitude']+','+data['longitude']+')" id="btn-see-on-map" class="btn-show">';
+            buttonBar += '<a onclick="prepareMapForSite()" id="btn-see-on-map" class="btn-show">';
             buttonBar += '<img src="style/images/icons/see-on-map.png" alt="Ver no mapa"></a>';
         }
 
@@ -229,10 +229,7 @@ clientMarker = false;
 latLngBound = false;
 directions = false;
 
-function prepareMapForSite(lat, log) {
-    Zoom = MapZoomDefault;
-    Styles = MapStyles;
-
+function prepareMapForSite() {
     if (!mapApiLoaded) {
         $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&callback=createMap", function() {
             mapApiLoaded = true;
@@ -249,6 +246,7 @@ function prepareMapForSite(lat, log) {
  */
 function createMap() {
     $.mobile.changePage('#site-map', {transition: "slide"});
+    console.log('Criando o mapa');
     resizeMap();
     
     if (siteDescription['latitude']) {
@@ -293,6 +291,7 @@ function createMap() {
     });
     
     if (navigator.geolocation) {
+        console.log('Adicionando o cliente');
         navigator.geolocation.getCurrentPosition(function (position){
             clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             clientMarker = new google.maps.Marker({
