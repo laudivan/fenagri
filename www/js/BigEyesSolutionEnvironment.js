@@ -262,9 +262,8 @@ function createMap() {
     siteLocation = new google.maps.LatLng(siteLat, siteLog);
 
     mapOptions = {
-        zoom: MapZoomDefault,
+        zoom: 16,
         backgroundColor: '#26262d',
-        styles: Styles,
         center: siteLocation,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         zoomControl: false,
