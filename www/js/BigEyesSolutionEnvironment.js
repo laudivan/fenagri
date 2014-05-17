@@ -235,8 +235,6 @@ function prepareMapForSite(lat, log) {
 
     if (!mapApiLoaded) {
         $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&callback=createMap", function() {
-            $('<script src="js/jquery.ui.map.full.min.js"></script>').appendTo('head');
-            
             mapApiLoaded = true;
 
             $.ajaxSetup({cache: false});
