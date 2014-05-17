@@ -222,6 +222,7 @@ function backToSiteList () {
 
 mapApiLoaded = false;
 mapObj = false;
+firstLoad = true;
 siteMarker = false;
 clientMarker = false;
 latLngBound = false;
@@ -249,12 +250,12 @@ function createMap() {
     siteLocation = new google.maps.LatLng(siteLat, siteLog);
 
     mapOptions = {
-        zoom: 16,
+        zoom: 13,
         backgroundColor: '#26262d',
         center: siteLocation,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         zoomControl: false,
-        scrollwheel: true,
+        scrollwheel: false,
         disableDoubleClickZoom: false,
         streetViewControl: false,
         overviewMapControl: false,
@@ -289,16 +290,27 @@ function createMap() {
                 animation: google.maps.Animation.DROP,
                 icon: 'style/images/icons/user-location.png'
             });
-            
-            latLngBound = new google.maps.LatLngBounds();
-            
-            latLngBound.extend(siteMarker.getPosition());
-            latLngBound.extend(clientMarker.getPosition());
-            
-            mapObj.fitBounds(latLngBound);
-            mapObj.panTo(latLngBound.getCenter());
-            mapObj.panToBounds(latLngBound);
         });
+    }
+    
+    google.maps.event.addListener(mapObj, 'tilesloaded', function() {
+        if (firstLoad) {
+            firstLoad = false;
+            panToLatLon();
+        }
+    });
+}
+
+function panToLatLon() {
+    if (clientMarker && siteMarker) {
+        latLngBound = new google.maps.LatLngBounds();
+            
+        latLngBound.extend(siteMarker.getPosition());
+        latLngBound.extend(clientMarker.getPosition());
+
+        mapObj.fitBounds(latLngBound);
+        mapObj.panTo(latLngBound.getCenter());
+        mapObj.panToBounds(latLngBound);
     }
 }
 
@@ -312,6 +324,7 @@ function backFromMapToHome () {
     directions = false;
     
     mapObj = false;
+    firstLoad = true;
     
     $('#map-canvas').empty();
     
@@ -330,6 +343,7 @@ function backFromMapToDesc() {
     siteMarker = false;
     latLngBound = false;
     directions = false;
+    firstLoad = true;
     
     mapObj = false;
     
@@ -527,7 +541,7 @@ mapApiLoadHandler = false;
 function mapApiLoad (handler) {
     mapApiLoadHandler = handler;
     if (!mapApiLoaded) {
-        $.getScript("http://maps.googleapis.com/maps/api/js?sensor=true&callback=mapApiLoadHandlerExec&key=" + MapKey, function() {
+        $.getScript("http://maps.googleapis.com/maps/api/js?sensor=false&callback=mapApiLoadHandlerExec&key=" + MapKey, function() {
             mapApiLoaded = true;
         });
     } else {
