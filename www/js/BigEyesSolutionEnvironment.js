@@ -224,8 +224,11 @@ latLngBound = false;
 directions = false;
 
 function prepareMapForSite() {
+    $.mobile.changePage('#site-map', {transition: "slide"});    
+    resizeMap();
+    
     if (!mapApiLoaded) {
-        $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&async=2&callback=createMap", function() {
+        $.getScript("http://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&async=2&callback=createMap", function() {
             mapApiLoaded = true;
             $.ajaxSetup({cache: false});
         });
@@ -238,9 +241,6 @@ function prepareMapForSite() {
  * Cria o elemento do Mapa para ser exibido.
  */
 function createMap() {
-    $.mobile.changePage('#site-map', {transition: "slide"});
-//    resizeMap();
-    
     if (siteDescription['latitude']) {
         siteLat = siteDescription['latitude'];
         siteLog = siteDescription['longitude'];
@@ -512,10 +512,12 @@ function voteOnSite () {
     
 };
 
-function loading(showOrHide) {
-    setTimeout(function(){
-        $.mobile.loading(showOrHide);
-    }, 1); 
+function loading(page, showOrHide) {
+    if (showOrHide) {
+        $(page+' .loading').removeClass('loading-hide');
+    } else {
+        if (!$(page+' .loading').hasClass('loading-hide')) $('.loading').addClass('loading-hide');
+    }
 }
 
 function resizeMap () {
