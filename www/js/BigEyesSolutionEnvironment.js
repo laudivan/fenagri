@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 siteSwiper = false;
 
 function bigeyesInit() {    
@@ -232,7 +227,6 @@ function prepareMapForSite() {
     if (!mapApiLoaded) {
         $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&async=2&callback=createMap", function() {
             mapApiLoaded = true;
-
             $.ajaxSetup({cache: false});
         });
     } else {
@@ -245,7 +239,7 @@ function prepareMapForSite() {
  */
 function createMap() {
     $.mobile.changePage('#site-map', {transition: "slide"});
-    resizeMap();
+//    resizeMap();
     
     if (siteDescription['latitude']) {
         siteLat = siteDescription['latitude'];
@@ -389,7 +383,10 @@ function deg2rad(deg) {
 function refreshImgListviewSize() {
     categoryId = $('#sites-ul').attr('data-category');
 
-    thumbSize = $(document).width() < 768 ? 80 : 230;
+    thumbSize = $(document).width() < 480 ? 130 
+                : $(document).width() < 600 ? 200
+                : $(document).width() < 800 ? 250
+                : 300;
 
     baseUrl = BaseApiURL + '/whitelabel/' + WhitelabelId + '/category/' + categoryId + '/site/';
 
@@ -474,9 +471,9 @@ function onDeviceReady () {
 function onBrowserReady () {
     $('#front-page-header').toolbar("hide");
         
-    $(window).resize(function() {
-        refreshImgListviewSize();
-        resizeMap();
+    $(window).bind('pageshow resize orientationchange', function(e){
+        if ($('#sites').hasClass('ui-page-active')) refreshImgListviewSize();
+        else if ($('#site-map').hasClass('ui-page-active')) resizeMap();
     });
 
     $(document).scroll(function() {
@@ -522,12 +519,7 @@ function loading(showOrHide) {
 }
 
 function resizeMap () {
-    if (! IsABrowser) {
-        $('#map-canvas,#site-map').width($(window).width());
-        $('#map-canvas,#site-map').height($(window).height());
-    } else {
-        $('#map-canvas,#site-map').width($('body').width());
-        $('#map-canvas,#site-map').height($('body').height());
-    }
+    $('#map-canvas').width($('#site-map').width());
+    $('#map-canvas').height($('#site-map').height());
 }
 
