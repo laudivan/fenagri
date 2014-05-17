@@ -45,8 +45,8 @@ function showSiteDescription(siteId) {
         }
         
         if (CategoryWithoutMap.indexOf(categoryId) < 0) {
-            prepareMapForSite(data['latitude'], data['longitude']);
-            buttonBar += '<a onclick="showMap ()" id="btn-see-on-map" class="btn-show">';
+            ;
+            buttonBar += '<a onclick="prepareMapForSite('+data['latitude']+','+data['longitude']+')" id="btn-see-on-map" class="btn-show">';
             buttonBar += '<img src="style/images/icons/see-on-map.png" alt="Ver no mapa"></a>';
         }
 
@@ -202,6 +202,11 @@ function backToHome() {
     $.mobile.changePage('#home', {transition: "slide"});
     $('#site-description-content').empty();
     $('#sites-ul').empty();
+    
+    if(mapObj) {
+        $('#map-canvas').gmap('destroy');
+        mapObj = false;
+    }
 }
 
 /* FUNÇÕES DE RETORNO */
@@ -218,18 +223,18 @@ function backToSiteList () {
 /* EXIBIÇÃO DO MAPA */
 
 mapApiLoaded = false;
-mapOptions = false;
 mapObj = false;
 siteMarker = false;
 clientMarker = false;
-logLatList = [];
+latLngBound = false;
+directions = false;
 
 function prepareMapForSite(lat, log) {
     Zoom = MapZoomDefault;
     Styles = MapStyles;
 
     if (!mapApiLoaded) {
-        $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=false&callback=createMap", function() {
+        $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&callback=createMap", function() {
             $('<script src="js/jquery.ui.map.full.min.js"></script>').appendTo('head');
             
             mapApiLoaded = true;
@@ -237,33 +242,15 @@ function prepareMapForSite(lat, log) {
             $.ajaxSetup({cache: false});
         });
     } else {
-        $('#map-canvas').gmap('destroy');
-        mapObj = false;
-        
         createMap();
-        
-        $('#map-canvas').gmap('refresh');
-
     }
 };
-
-function showMap () {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(setClientMarker);
-    }
-    
-    $.mobile.changePage('#site-map', {transition: 'slide'});
-    
-    resizeMap();
-    
-    $('#map-canvas').gmap('refresh');
-}
 
 /**
  * Cria o elemento do Mapa para ser exibido.
  */
 function createMap() {
-    //Atualizando a altura do mapa
+    $.mobile.changePage('#site-map', {transition: "slide"});
     resizeMap();
     
     if (siteDescription['latitude']) {
@@ -294,58 +281,75 @@ function createMap() {
         maxZoom: 19,
         minZoom: 8
     };
-
-    $('#map-canvas').gmap (mapOptions).bind('init', function (){
-        mapObj =  $('#map_canvas').gmap('get','map');
-        
-        setSiteMarker();
-        
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(setClientMarker);
-        }
-        
-        $('#map-canvas').gmap('refresh');
-    });
-}
-
-/**
- * Insere um marcador para o estabelecimento selecionado.
- */
-function setSiteMarker() {
-    siteLat = siteDescription['latitude'];
-    siteLog = siteDescription['longitude'];
-
-    $('#map-canvas').gmap('addMarker', { 
-            id:'site', 
-            'position': siteLat+','+siteLog, 
-            icon: 'style/images/icons/site-location.png', 
-            'bounds': true 
-        } 
-    );
-}
-
-/**
- * Insere um marcado para o cliente na posição passada em position
- * 
- * @param position Posição do cliente
- */
-function setClientMarker(position) {
-    lat = position.coords.latitude;
-    log = position.coords.longitude;
     
-    $('#map-canvas').gmap('addMarker', { 
-        id:'client', 
-        'position': lat+','+log, 
-        icon: 'style/images/icons/user-location.png', 
-        'bounds': true 
+    mapObj = new google.maps.Map(
+        document.getElementById('map-canvas'),
+        mapOptions
+    );
+    
+    siteMarker = new google.maps.Marker({
+        position: siteLocation,
+        map: mapObj,
+        title: siteDescription['title'],
+        animation: google.maps.Animation.DROP,
+        icon: 'style/images/icons/site-location.png'
     });
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position){
+            clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            clientMarker = new google.maps.Marker({
+                position: clientPosition,
+                map: mapObj,
+                title: 'Você está aqui.',
+                animation: google.maps.Animation.DROP,
+                icon: 'style/images/icons/user-location.png'
+            });
+            
+            latLngBound = new google.maps.LatLngBounds();
+            
+            latLngBound.extend(siteMarker.getPosition());
+            latLngBound.extend(clientMarker.getPosition());
+            
+            mapObj.fitBounds(latLngBound);
+            mapObj.panTo(latLngBound.getCenter());
+            mapObj.panToBounds(latLngBound);
+        });
+    }
+}
+
+function backFromMapToHome () {
+    if (clientMarker) clientMarker.setMap(null);
+    if (siteMarker) siteMarker.setMap(null);
+    
+    clientMarker = false;
+    siteMarker = false;
+    latLngBound = false;
+    directions = false;
+    
+    mapObj = false;
+    
+    $('#map-canvas').empty();
+    
+    $.mobile.changePage('#home', {transition: "slide"});
 }
 
 /**
  * Retorna, apartir da exibição de um mapa, para 
  */
-function backFromMap() {
+function backFromMapToDesc() {
     window.history.back();
+    if (clientMarker) clientMarker.setMap(null);
+    if (siteMarker) siteMarker.setMap(null);
+    
+    clientMarker = false;
+    siteMarker = false;
+    latLngBound = false;
+    directions = false;
+    
+    mapObj = false;
+    
+    $('#map-canvas').empty();
 }
 
 /* ==== Funções de distancia ==== */

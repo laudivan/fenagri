@@ -24,14 +24,14 @@
             BaseApiURL       = 'http://api.bigeyessolution.com';
             //BaseApiURL       = 'http://localhost:8001';
             ShowInApp        =  true;
-            IsABrowser       =  true;
+            IsABrowser       =  false;
             ApiKey           =  '';
             CategoryWithoutMap = [7];
             
             MapKey           = 'AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw';
             DefaultMapLat    = -9.3924361; //@todo Onde vair ser a FENAGRI??
             DefaultMapLon    = -40.4939533;
-            MapZoomDefault   = 10;
+            MapZoomDefault   = 19;
             var MapStyles =[ 
                 {   "featureType": "administrative",
                     "stylers": [{ "visibility": "off" }]
@@ -127,8 +127,8 @@
 
         <div id="site-map" data-theme="c" data-role="page">
             <div id="map-canvas"></div>
-            <a href="index.html" class="bt-home"></a>
-            <a onclick="window.history.back()" class="bt-back"></a>
+            <a onclick="backFromMapToHome()" class="bt-home"></a>
+            <a onclick="backFromMapToDesc()" class="bt-back"></a>
         </div>
         
         <!-- SOBRE A SOLUCAO-->
