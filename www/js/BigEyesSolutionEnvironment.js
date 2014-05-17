@@ -254,6 +254,8 @@ function showMap () {
     
     $.mobile.changePage('#site-map', {transition: 'slide'});
     
+    resizeMap();
+    
     $('#map-canvas').gmap('refresh');
 }
 
@@ -262,7 +264,7 @@ function showMap () {
  */
 function createMap() {
     //Atualizando a altura do mapa
-    $('#map-canvas').attr('height', window.screen.height);
+    resizeMap();
     
     if (siteDescription['latitude']) {
         siteLat = siteDescription['latitude'];
@@ -477,7 +479,7 @@ function onBrowserReady () {
         
     $(window).resize(function() {
         refreshImgListviewSize();
-        $('#map-canvas').attr('height', window.screen.height);
+        resizeMap();
     });
 
     $(document).scroll(function() {
@@ -490,8 +492,6 @@ function onBrowserReady () {
             }
         }
     });
-    
-    createMap();
 };
 
 function isConnected () {
@@ -522,5 +522,15 @@ function loading(showOrHide) {
     setTimeout(function(){
         $.mobile.loading(showOrHide);
     }, 1); 
+}
+
+function resizeMap () {
+    if (! IsABrowser) {
+        $('#map-canvas,#site-map').width($(window).width());
+        $('#map-canvas,#site-map').height($(window).height());
+    } else {
+        $('#map-canvas,#site-map').width($('body').width());
+        $('#map-canvas,#site-map').height($('body').height());
+    }
 }
 
