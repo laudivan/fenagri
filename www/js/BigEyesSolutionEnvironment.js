@@ -73,7 +73,6 @@ function showSiteDescription(siteId) {
         
         $.getJSON(siteURL + '/media', function(data) {
             if (data.length === 0 || (data.length === 1 && data[0]['site_logo'] === "1")) {
-                console.log('Sem media');
                 return;
             }
 
@@ -231,7 +230,7 @@ directions = false;
 
 function prepareMapForSite() {
     if (!mapApiLoaded) {
-        $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&callback=createMap", function() {
+        $.getScript("https://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&async=2&callback=createMap", function() {
             mapApiLoaded = true;
 
             $.ajaxSetup({cache: false});
@@ -246,7 +245,6 @@ function prepareMapForSite() {
  */
 function createMap() {
     $.mobile.changePage('#site-map', {transition: "slide"});
-    console.log('Criando o mapa');
     resizeMap();
     
     if (siteDescription['latitude']) {
@@ -291,7 +289,6 @@ function createMap() {
     });
     
     if (navigator.geolocation) {
-        console.log('Adicionando o cliente');
         navigator.geolocation.getCurrentPosition(function (position){
             clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             clientMarker = new google.maps.Marker({
