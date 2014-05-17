@@ -7,6 +7,10 @@ function bigeyesInit() {
         window.setTimeout(function () {navigator.splashscreen.hide();}, 3000);
         document.addEventListener("deviceready", onDeviceReady, false);
     }
+    
+    if (typeof google) {
+        mapApiLoaded = true;
+    }
 };
 
 siteDescription = false;
@@ -188,7 +192,7 @@ function showSitesByCategory(id) {
     });
 
     $.mobile.changePage('#sites', {transition: "slide"});
-    
+    mapApiLoad(function(){});
     categoryVisit(categoryId);
 };
 
@@ -227,14 +231,7 @@ function prepareMapForSite() {
     $.mobile.changePage('#site-map', {transition: "slide"});    
     resizeMap();
     
-    if (!mapApiLoaded) {
-        $.getScript("http://maps.googleapis.com/maps/api/js?key=" + MapKey + "&sensor=true&async=2&callback=createMap", function() {
-            mapApiLoaded = true;
-            $.ajaxSetup({cache: false});
-        });
-    } else {
-        createMap();
-    }
+    mapApiLoad(createMap);
 };
 
 /**
@@ -523,5 +520,27 @@ function loading(page, showOrHide) {
 function resizeMap () {
     $('#map-canvas').width($('#site-map').width());
     $('#map-canvas').height($('#site-map').height());
+}
+
+mapApiLoadHandler = false;
+
+function mapApiLoad (handler) {
+    mapApiLoadHandler = handler;
+    if (!mapApiLoaded) {
+        $.getScript("http://maps.googleapis.com/maps/api/js?sensor=true&callback=mapApiLoadHandlerExec&key=" + MapKey, function() {
+            mapApiLoaded = true;
+        });
+    } else {
+        handler();
+    }
+}
+
+function mapApiLoadHandlerExec() {
+    mapApiLoaded = true;
+    mapApiLoadHandler();
+}
+
+function setApiLoaded () {
+    mapApiLoaded = true;
 }
 

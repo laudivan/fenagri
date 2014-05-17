@@ -17,7 +17,7 @@
         <script src="cordova.js"></script>
         <script src="js/index.js"></script>
         <script src="js/BigEyesSolutionEnvironment.js"></script>
-        
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw"></script>
         <script type="text/javascript">
             WhitelabelId     = 1,
             WhitelabelName   = "FENAGRI 2014";
@@ -39,13 +39,11 @@
                     "stylers": [{ "visibility": "off" }]
                 }
             ];
-            
-            bigeyesInit();
         </script>
 
         <title>Fenagri APP</title>
     </head>
-    <body>
+    <body onload="bigeyesInit();">
         <div data-role="page" id="home" data-theme="b" class="frontpage-with-list-thumb list-of-categories"> <!-- Define a primeira págine do aplicativo -->
             <div id="front-page-header" data-role="header" data-position="fixed" data-fullscreen="true" data-tap-toggle="false">
                 <h1><a href="#home" class="bt-logo-header"></a></h1>
