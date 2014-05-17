@@ -253,6 +253,7 @@ function showMap () {
     }
     
     $.mobile.changePage('#site-map', {transition: 'slide'});
+    
     $('#map-canvas').gmap('refresh');
 }
 
@@ -260,6 +261,9 @@ function showMap () {
  * Cria o elemento do Mapa para ser exibido.
  */
 function createMap() {
+    //Atualizando a altura do mapa
+    $('#map-canvas').attr('height', window.screen.height);
+    
     if (siteDescription['latitude']) {
         siteLat = siteDescription['latitude'];
         siteLog = siteDescription['longitude'];
@@ -473,6 +477,7 @@ function onBrowserReady () {
         
     $(window).resize(function() {
         refreshImgListviewSize();
+        $('#map-canvas').attr('height', window.screen.height);
     });
 
     $(document).scroll(function() {
