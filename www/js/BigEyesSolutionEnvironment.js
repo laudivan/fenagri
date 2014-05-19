@@ -54,10 +54,10 @@ function showSiteDescription(siteId) {
             buttonBar += '<a href="tel:'+data['phone']+'" id="site-phone">'+data['phone']+'</a>';
         };
         
-//        if (CategoryWithoutMap.indexOf(categoryId) < 0) {            
-//            buttonBar += '<a onclick="showMapForSite()" id="btn-see-on-map" class="btn-show">';
-//            buttonBar += '<img src="style/images/icons/see-on-map.png" alt="Ver no mapa"></a>';
-//        };
+        if (CategoryWithoutMap.indexOf(categoryId) < 0) {            
+            buttonBar += '<a onclick="showMapForSite()" id="btn-see-on-map" class="btn-show">';
+            buttonBar += '<img src="style/images/icons/see-on-map.png" alt="Ver no mapa"></a>';
+        };
 
         if (data['has_offers'] === "1") {
             buttonBar += '<a onclick="showOffersForSite('+siteId+')" id="btn-show-itens" class="btn-show">';
@@ -287,7 +287,7 @@ function createMap() {
     mapOptions = {
         zoom: 13,
         styles: MapStyles,
-        center: siteLocation,
+        center: new google.maps.LatLng(siteLat, siteLog),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         zoomControl: false,
         scrollwheel: false,
@@ -313,8 +313,15 @@ function createMap() {
 };
 
 function addMarkers () {
+    if (siteDescription) {
+        siteLat = siteDescription['latitude'];
+        siteLog = siteDescription['longitude'];
+    } else {
+        return;
+    };
+    
     siteMarker = new google.maps.Marker({
-        position: siteLocation,
+        position: new google.maps.LatLng(siteLat, siteLog),
         map: mapObj,
         title: siteDescription['title'],
         animation: google.maps.Animation.DROP,
@@ -568,16 +575,16 @@ function loading(page, showOrHide) {
 
 function resizeMap () {
     if (! isDevice()) {
-        $('.gm-style').height($('body').height());
+//        $('.gm-style').height($('body').height());
         $('#map-canvas').height($('body').height());
     } else {
-        $('.gm-style').height($(window).height());
+//        $('.gm-style').height($(window).height());
         $('#map-canvas').height($(window).height());
     };
 };
 
 function mapApiLoad() {
-    url = 'https://maps.googleapis.com/maps/api/js?async=2&sensor=true&callback=mapinitialize&key=AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw';
+    url = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=mapinitialize&key=AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw';
 
     if (mapApiIsLoaded()) return;
     
