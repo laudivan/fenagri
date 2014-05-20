@@ -3,20 +3,11 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "com.bigeyessolution.FenagriApp"
     versionCode = "13" 
-    version     = "1.0.491" >
+    version     = "1.0.492" >
     <name>FENAGRI 2014</name>
     <description>Este é o aplicativo oficical da FENAGRI 2014. Foi desenvolvido especialmente para os visitantes ou àqueles que querem conhecer um pouco mais do potencial turístico e econômico da região.</description>
     <author email="dev@bigeyessolution.com" href="http://www.bigeyessolution.com">Big Eyes Solution Team</author>
-    <access origin="http://*"/>
-    <access origin="https://*"/>
-    <access origin="http://*.google.com" />
-    <access origin="https://*.google.com" />
-    <access origin="http://*.apple.com" />
-    <access origin="https://*.apple.com" />
-    <access origin="http://*.blackberry.com" />
-    <access origin="https://*.blackberry.com" />
-    <access origin="http://*.bigeyessolution.com" />
-    <access origin="http://*.fenagri2014.com.br" />
+    <access origin="*" subdomains="true"/>
     <gap:platform name="ios" />
     <gap:platform name="android" />
     <gap:platform name="winphone" />

@@ -262,10 +262,6 @@ body {
 
 #site-map,#map-canvas, .gm-style { width: 100%; height: 100%;};
 
-.MicrosoftMap .CopyrightContainer .copyrightAttribution{
-    font-size: 8px!important;
-}
-
 @media ( min-width: 48em ) { 
     #site-logo { max-width: 400px; }
 }
