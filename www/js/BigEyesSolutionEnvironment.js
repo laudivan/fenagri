@@ -577,12 +577,6 @@ function resizeMap () {
     } else {
         $('#map-canvas').height($(window).height());
     };
-    
-    if (latLngBound) {
-        mapObj.fitBounds(latLngBound);
-        mapObj.panTo(latLngBound.getCenter());
-        mapObj.panToBounds(latLngBound);
-    }
 };
 
 function mapApiLoad() {
