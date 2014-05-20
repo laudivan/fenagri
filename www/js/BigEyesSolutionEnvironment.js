@@ -271,8 +271,6 @@ function createMap() {
         siteLog = -40.4939533;
     };
     
-    
-    
     var MapStyles =[ 
         {   "featureType": "administrative",
             "stylers": [{ "visibility": "off" }]
@@ -575,12 +573,16 @@ function loading(page, showOrHide) {
 
 function resizeMap () {
     if (! isDevice()) {
-//        $('.gm-style').height($('body').height());
         $('#map-canvas').height($('body').height());
     } else {
-//        $('.gm-style').height($(window).height());
         $('#map-canvas').height($(window).height());
     };
+    
+    if (latLngBound) {
+        mapObj.fitBounds(latLngBound);
+        mapObj.panTo(latLngBound.getCenter());
+        mapObj.panToBounds(latLngBound);
+    }
 };
 
 function mapApiLoad() {
