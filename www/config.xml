@@ -7,7 +7,8 @@
     <name>FENAGRI 2014</name>
     <description>Este é o aplicativo oficical da FENAGRI 2014. Foi desenvolvido especialmente para os visitantes ou àqueles que querem conhecer um pouco mais do potencial turístico e econômico da região.</description>
     <author email="dev@bigeyessolution.com" href="http://www.bigeyessolution.com">Big Eyes Solution Team</author>
-    <access origin="http://127.0.0.1*"/>
+    <access origin="http://*"/>
+    <access origin="https://*"/>
     <access origin="http://*.google.com" />
     <access origin="https://*.google.com" />
     <access origin="http://*.apple.com" />
