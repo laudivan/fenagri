@@ -7,12 +7,6 @@ function bigeyesInit() {
         if ($('#sites').hasClass('ui-page-active')) { refreshImgListviewSize();
         } else if ($('#site-map').hasClass('ui-page-active')) {
             resizeMap();
-            
-            if (latLngBound) {
-                mapObj.fitBounds(latLngBound);
-                mapObj.panTo(latLngBound.getCenter());
-                mapObj.panToBounds(latLngBound);
-            }
         };
     };
     
@@ -239,12 +233,18 @@ function showMapForSite() {
 
 function preparaMapForSite () {
     if (!mapApiIsLoaded()) {
-        $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw&sensor=true&v=2&async=2&callback=createMap", function() {
+        $.getScript("http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0", function() {
             mapApiLoaded = true;
-
+            
+            resizeMap();
+            
+            createMap();
+            
             $.ajaxSetup({cache: false});
         });
     } else {
+        latLngBound = [];
+        
         addMarkers();
         resizeMap();
     }
@@ -282,34 +282,28 @@ function createMap() {
         }
     ];
     
-    siteLocation = new google.maps.LatLng(siteLat, siteLog);
+    siteLocation = new Microsoft.Maps.Location(siteLat, siteLog);
 
     mapOptions = {
-        zoom: 13,
-        styles: MapStyles,
-        center: new google.maps.LatLng(siteLat, siteLog),
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        zoomControl: false,
-        scrollwheel: false,
-        disableDoubleClickZoom: false,
-        streetViewControl: false,
-        overviewMapControl: false,
-        panControl: false,
-        scaleControl: false,
-        mapTypeControl: true,
-        disableDefaultUI: false,
-        maxZoom: 19,
-        minZoom: 8
+        credentials:"AtAu3-Y4zI0zqGyAEM2COAP-Dfj5fyPUkveOfXokhyFhUy_wun3Yd9gSEdPTB5YV",
+        mapTypeId: Microsoft.Maps.MapTypeId.Auto,
+        center: siteLocation,
+        animate: true,
+        enableClickableLogo: false,
+        enableSearchLogo: false,
+        showCopyright: false,
+        showDashboard: false,
+        showScalebar: false,
+        tileBuffer: 4,
+        showMapTypeSelector: false,
+        zoom: 13
     };
     
-    mapObj = new google.maps.Map(
-        document.getElementById('map-canvas'),
-        mapOptions
-    );
+    mapObj = new Microsoft.Maps.Map(document.getElementById("map-canvas"), mapOptions);
+    
+    latLngBound = [];
     
     addMarkers();
-    
-    resizeMap();
 };
 
 function addMarkers () {
@@ -320,40 +314,41 @@ function addMarkers () {
         return;
     };
     
-    siteMarker = new google.maps.Marker({
-        position: new google.maps.LatLng(siteLat, siteLog),
-        map: mapObj,
-        title: siteDescription['title'],
-        animation: google.maps.Animation.DROP,
-        icon: 'style/images/icons/site-location.png'
+    latLngBound.push(siteLocation);
+    
+    siteMarker = new Microsoft.Maps.Pushpin(siteLocation, {
+        icon: 'style/images/icons/site-location.png',
+        height: 24,
+        width: 15
     });
+    
+    mapObj.entities.push(siteMarker);
     
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position){
-            clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            clientMarker = new google.maps.Marker({
-                position: clientPosition,
-                map: mapObj,
-                title: 'Você está aqui.',
-                animation: google.maps.Animation.DROP,
-                icon: 'style/images/icons/user-location.png'
+            clientLocation = new Microsoft.Maps.Location(
+                position.coords.latitude, 
+                position.coords.longitude
+            );
+    
+            latLngBound.push(clientLocation);
+    
+            clientMarker = new Microsoft.Maps.Pushpin(clientLocation, {
+                icon: 'style/images/icons/user-location.png',
+                height: 24,
+                width: 20
             });
             
-            latLngBound = new google.maps.LatLngBounds();
+            mapObj.entities.push(clientMarker);
             
-            latLngBound.extend(siteMarker.getPosition());
-            latLngBound.extend(clientMarker.getPosition());
-
-            mapObj.fitBounds(latLngBound);
-            mapObj.panTo(latLngBound.getCenter());
-            mapObj.panToBounds(latLngBound);
+            resizeMap();
         });
     };
+    
 }
 
 function backFromMapToHome () {
-    if (clientMarker) clientMarker.setMap(null);
-    if (siteMarker) siteMarker.setMap(null);
+    mapObj.entities.clear();
     
     clientMarker = false;
     siteMarker = false;
@@ -361,8 +356,6 @@ function backFromMapToHome () {
     directions = false;
     
     firstLoad = true;
-    
-    $('#map-canvas').empty();
     
     $.mobile.changePage('#home', {transition: "slide"});
 };
@@ -372,16 +365,13 @@ function backFromMapToHome () {
  */
 function backFromMapToDesc() {
     window.history.back();
-    if (clientMarker) clientMarker.setMap(null);
-    if (siteMarker) siteMarker.setMap(null);
+    mapObj.entities.clear();
     
     clientMarker = false;
     siteMarker = false;
     latLngBound = false;
     directions = false;
     firstLoad = true;
-    
-    $('#map-canvas').empty();
 };
 
 /* ==== Funções de distancia ==== */
@@ -581,17 +571,12 @@ function resizeMap () {
 //        $('.gm-style').height($(window).height());
         $('#map-canvas').height($(window).height());
     };
-};
-
-function mapApiLoad() {
-    url = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=mapinitialize&key=AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw';
-
-    if (mapApiIsLoaded()) return;
     
-    $.getScript(url, function (){
-        mapApiLoaded = true;
-    });
-    mapApiLoaded = true;
+    if(latLngBound && mapObj) {
+        locRec = Microsoft.Maps.LocationRect.fromLocations(latLngBound);
+
+        mapObj.setView ({bounds: locRec });
+    }
 };
 
 function mapinitialize() {
@@ -599,7 +584,7 @@ function mapinitialize() {
 };
 
 function isDevice () {
-    return true;
+    return false;
 };
 
 function deviceRegistry () {
