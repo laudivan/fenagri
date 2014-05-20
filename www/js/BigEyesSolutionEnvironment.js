@@ -584,7 +584,7 @@ function mapinitialize() {
 };
 
 function isDevice () {
-    return false;
+    return true;
 };
 
 function deviceRegistry () {
