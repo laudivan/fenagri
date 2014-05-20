@@ -231,6 +231,14 @@ function showMapForSite() {
     preparaMapForSite();
 };
 
+function preLoadMapApi () {
+    if (!mapApiIsLoaded()) {
+        $.getScript("http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0", function() {
+            mapApiLoaded = true;
+        });
+    }
+}
+
 function preparaMapForSite () {
     if (!mapApiIsLoaded()) {
         $.getScript("http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0", function() {
@@ -270,8 +278,6 @@ function createMap() {
         siteLat = -9.3924361;
         siteLog = -40.4939533;
     };
-    
-    
     
     var MapStyles =[ 
         {   "featureType": "administrative",
@@ -313,6 +319,8 @@ function addMarkers () {
     } else {
         return;
     };
+    
+    siteLocation = new Microsoft.Maps.Location(siteLat, siteLog);
     
     latLngBound.push(siteLocation);
     
