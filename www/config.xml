@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns   = "http://www.w3.org/ns/widgets"
-    xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.bigeyessolution.FenagriApp"
-    versionCode = "13" 
-    version     = "1.0.492" >
+<widget  xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.bigeyessolution.CoquetelMusical" version     = "1.0.5" >
     <name>FENAGRI 2014</name>
     <description>Este é o aplicativo oficical da FENAGRI 2014. Foi desenvolvido especialmente para os visitantes ou àqueles que querem conhecer um pouco mais do potencial turístico e econômico da região.</description>
     <author email="dev@bigeyessolution.com" href="http://www.bigeyessolution.com">Big Eyes Solution Team</author>
@@ -49,9 +45,9 @@
     <gap:splash src="res/screen/ios/landscape-ipad.png" gap:platform="ios" width="1024" height="768" />
     <gap:splash src="res/screen/ios/landscape-ipda@2x.png" gap:platform="ios" width="2048" height="1536" />
     <gap:splash src="res/screen/ios/iphone5.png" gap:platform="ios" width="640" height="1136" />
-    <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
-    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.6" />
-    <gap:plugin name="org.apache.cordova.dialogs" version="0.2.6" />
-    <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
-    <gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
+    <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="org.apache.cordova.geolocation" />
+    <gap:plugin name="org.apache.cordova.dialogs" />
+    <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="org.apache.cordova.network-information" />
 </widget>
