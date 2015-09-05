@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!--
+    Created on : 24/03/2014, 13:37:45
+    Author     : Laudivan
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="style/index.css" />
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/jquery.mobile.custom.min.js"></script>
+        <script src="js/idangerous.swiper.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyDy0ZDbHRBA3wkyzxnFZriJIXyFRvEGmOw"></script>
+        <script src="cordova.js"></script>
+        <script src="js/BigEyesSolutionEnvironment.js"></script>
+        <script type="text/javascript">
+            WhitelabelId     = 1,
+            WhitelabelName   = "FENAGRI 2014";
+            BaseApiURL       = 'http://api.bigeyessolution.com';
+            CategoryWithoutMap = [7];
+        </script>
+
+        <title>Fenagri APP</title>
+    </head>
+    <body onload="bigeyesInit();">
+        <div data-role="page" id="home" data-theme="b" class="frontpage-with-list-thumb list-of-categories"> <!-- Define a primeira págine do aplicativo -->
+            <div id="front-page-header" data-role="header" data-position="fixed" data-fullscreen="true" data-tap-toggle="false">
+                <h1><a href="#home" class="bt-logo-header"></a></h1>
+            </div><!-- Header -->
+            
+            <div role="main" class="ui-content">
+                <span class="bt-logotipo-frontpage"></span>
+                
+                <ul id="categorias" data-role="listview" data-inset="true" class="listview">
+                    <li class="solid-green">
+                        <a href="#afeira">
+                            <img src="style/images/icons/fenagri.png" class="ui-li-thumb" alt="">
+                        <h2>A feira</h2>
+                    </a></li>
+                    <li class="solid-red"><a onclick="showSitesByCategory(1)"  class="gradient">
+                        <img src="style/images/icons/turismo.png" class="ui-li-thumb" alt="">
+                        <h2>Turismo</h2>
+                    </a></li>
+                    <li class="solid-darkblue"><a onclick="showSitesByCategory(2)" class="gradient">
+                        <img src="style/images/icons/hoteis.png" class="ui-li-thumb" alt="">
+                        <h2>Hotéis</h2>
+                    </a></li>
+                    <li class="solid-yellow"><a onclick="showSitesByCategory(3)" class="gradient">
+                        <img src="style/images/icons/restaurantes.png" class="ui-li-thumb" alt="">
+                        <h2>Restaurantes</h2>
+                    </a></li>
+                    <li class="solid-pink"><a onclick="showSitesByCategory(4)" class="gradient">
+                        <img src="style/images/icons/bares.png" class="ui-li-thumb" alt="">
+                        <h2>Bares</h2>
+                    </a></li>
+                    <li class="solid-blue-2"><a onclick="showSitesByCategory(7)" class="gradient">
+                            <img src="style/images/icons/taxi.png" class="ui-li-thumb" alt="">
+                        <h2>Taxi</h2>
+                    </a></li>
+                </ul><!-- Lista de categorias -->
+            </div>
+            <br>
+            
+            <div data-role="footer" data-theme="c" class="copyright ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
+            </div><!--footer -->
+        </div><!-- home page -->
+
+        <!-- Listagem de sites-->
+        <div data-role="page" data-theme="b" id="sites" class='frontpage-with-list-thumb'>
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a onclick="backSitesToHome ()" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a onclick="backSitesToHome ()" class="bt-logo-header"></a></h1>
+            </div>
+
+            <div role="main" class="ui-content">
+                <ul id="sites-ul" data-role="listview" data-filter="true" data-filter-placeholder="Pesquisar..." data-inset="true"></ul>
+            </div><!-- listview -->
+            <br>
+            <div data-role="footer" data-theme="c" class="copyright ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
+            </div>
+        </div> <!-- Listagem de sites-->
+        
+        <div data-role="page" data-theme="b" id="site-description" class="ui-responsive-panel">
+            
+            <div data-role="panel" data-theme="c" data-position="right" id="site-itens">
+                <div class="ui-body ui-body-c">
+                    <ul data-role="listview" data-theme="c" data-filter="true" data-filter-placeholder="Pesquisar..."></ul>
+                </div>
+            </div><!-- Lista de itens: quartos, cardápio, etc -->
+            
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a onclick="backToSiteList ()" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a onclick="backToHome ()" class="bt-logo-header"></a></h1>
+            </div>
+            <div id="site-description-content" role="main" data-role="content"></div>
+            
+            <br>
+            
+            <div data-role="footer" data-theme="c" class="copyright ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
+            </div>
+        </div> <!-- page site-description -->
+
+        <div id="site-map" data-theme="c" data-role="page">
+            <div id="map-canvas"></div>
+            <a onclick="backFromMapToHome()" class="bt-home"></a>
+            <a onclick="backFromMapToDesc()" class="bt-back"></a>
+        </div>
+        
+        <!-- SOBRE A SOLUCAO-->
+        <div data-role="page" data-theme="b" id="about">
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a onclick="window.history.back()" class="bt-logo-header"></a></h1>
+            </div> <!-- /about header -->
+            
+            <div class="ui-content" style="text-align: justify;">
+                <div class="ui-body-c">
+                    <p style="text-align: center">
+                        <a href="http://www.bigeyessolution.com" target="_blank"><img src="style/images/about-bigeyessolution.png" alt=""></a>
+                    </p>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Este aplicativo é parte do serviço de 
+                        mobile marketing desenvolvido e oferecido pela <em>Big Eyes 
+                        Solution Ltda</em> sob o modelo White Label.
+                        &nbsp;&nbsp;&nbsp;&nbsp;Para maiores informações acesse nosso site em 
+                        <a href="http://www.bigeyessolution.com" target="_blank">www.BigEyesSolution.com</a>
+                        ou envie um email para 
+                        <a href="mailto:contato@bigeyessolution.com">contato@BigEyesSolution.com</a>.
+                    </p>
+                </div>
+                <br/>
+                <div class="ui-body-c">
+                    <p style="text-align: center">
+                        <a href="http://www.encontresolucao.com.br" target="_blank"><img src="style/images/about-encontre.png" alt=""></a>
+                    </p>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;A Encontre Solução é parceira impressindível no projeto 
+                        e desenvolvimento desta solução.
+                        &nbsp;&nbsp;&nbsp;&nbsp;Para maiores informações visite 
+                        <a href="www.encontresolucao.com.br" target="_blank">www.EncontreSolucao.com.br</a> 
+                        ou envie uma mensagem para 
+                        <a href="mailto:contato@encontresolucao.com.br" target="_blank">contato@EncontreSolucao.com.br</a>.
+                    </p>
+                </div>
+                <br/>
+                <div class="ui-body-c">
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Utilizamos as seguintes tecnologias no desenvolvimento deste aplicativo:
+                    </p>
+                    <div class="ui-grid-b ui-responsive" style="text-align: center;">
+                        <div class="ui-block-a">
+                            <a href="http://jquery.com/" target="_blank"><img src="style/images/thanks/logo-jquery.png" class="ui-li-thumb" alt=""></a>
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="http://jquerymobile.com/" target="_blank"><img src="style/images/thanks/logo-jqm.png" class="ui-li-thumb" alt=""></a>
+                        </div>
+                        <div class="ui-block-c">
+                            <a href="http://cordova.apache.org/" target="_blank"><img src="style/images/thanks/logo-cordova.png" class="ui-li-thumb" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- /about content main -->
+            <br>
+            <div data-role="footer" data-theme="c" class="copyright ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
+            </div><!-- /#about footer -->
+        </div> <!-- about page -->
+
+        <!-- A FEIRA-->
+        <div data-role="page" data-theme="b" id="afeira">
+            <div data-role="header" class="ui-header-fixed ui-header-fullscreen">
+                <a data-rel="back" class="ui-btn-icon-notext bt-header-back"></a>
+                <h1><a onclick="backToHome()" class="bt-logo-header"></a></h1>
+            </div> <!-- /about header -->
+            
+            <div class="ui-content" style="text-align: justify;">
+                <div class="ui-body-c">
+                    <p>
+                       &nbsp;&nbsp;&nbsp;&nbsp;Na Fenagri, você vai conhecer muitas novidades. 
+                       Exposição de produtos e serviços voltados para o agronegócio, e uma grande programação de minicursos, 
+                       rodadas de negócios, palestras, debates e exposição sobre a agricultura familiar, exportação cooperada, 
+                       fruticultura, novas culturas, associativismo, integração com apicultura, caprino-ovinocultura e piscicultura, 
+                       intercâmbio comercial, integração entre produtores, comercializadores e exportadores, novos mercados e muito mais. 
+                       E você, que é produtor, fornecedor ou comercializador, não pode perder!
+                       <br>
+                       <a href="http://fenagri2014.com.br/" target="_blank">www.fenagri2014.com.br</a>
+                    </p>
+                </div>
+                <br>
+                <div class="ui-body-c">
+                    <img src="style/images/palnta.png" alt="" style="width: 100%; height: auto;">
+                </div>
+            </div> <!-- ui-content -->
+            <br>
+            <div data-role="footer" data-theme="c" class="copyright ui-footer-fixed ui-footer-fullscreen">
+                <h1><a data-transition="slideup" href="#about"><img src="style/images/copyright.png" alt=""></a></h1>
+            </div>
+        </div> <!-- a-feira -->
+    </body>
+</html>
